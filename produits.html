@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos 40 Variétés — Pousses Vivantes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --forest:    #1a2e1a;
+      --moss:      #2d4a2d;
+      --sage:      #5a7a4e;
+      --fern:      #7aab62;
+      --mist:      #c8dab8;
+      --cream:     #f5f0e8;
+      --ivory:     #fdfaf4;
+      --gold:      #c9a84c;
+      --charcoal:  #1c1c1c;
+      --text-body: #3a3a3a;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'DM Sans', sans-serif;
+      --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--ivory); color: var(--text-body); }
+    a    { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(253,250,244,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 1rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 300;
+      color: var(--forest); letter-spacing: 0.05em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo svg { width: 24px; height: 24px; }
+    .nav-actions { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--sage);
+      transition: color 0.3s;
+    }
+    .nav-back:hover { color: var(--forest); }
+    .nav-cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.3rem;
+      background: var(--fern); color: white;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-radius: 50px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cta-btn:hover { background: var(--moss); transform: translateY(-1px); }
+
+    /* ── QUICK-ADD MODAL ── */
+    .qa-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 900; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .qa-overlay.open { opacity: 1; pointer-events: all; }
+    .qa-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-44%) scale(0.94); width: 360px; max-width: 92vw; background: var(--ivory); border-radius: 18px; box-shadow: 0 28px 70px rgba(0,0,0,0.2); z-index: 901; opacity: 0; pointer-events: none; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .qa-modal.open { opacity: 1; pointer-events: all; transform: translate(-50%,-50%) scale(1); }
+    .qa-modal-top { display: flex; gap: 1rem; align-items: center; padding: 1.4rem 2.5rem 1rem 1.4rem; border-bottom: 1px solid var(--mist); position: relative; }
+    .qa-close { position: absolute; top: 0.9rem; right: 0.9rem; background: none; border: none; cursor: pointer; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--sage); font-size: 1.2rem; transition: background 0.2s; }
+    .qa-close:hover { background: var(--mist); }
+    .qa-img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; background: var(--cream); flex-shrink: 0; }
+    .qa-product-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--forest); }
+    .qa-product-unit { font-size: 0.73rem; color: var(--sage); margin-top: 2px; }
+    .qa-product-price { font-size: 0.82rem; color: var(--fern); font-weight: 500; margin-top: 4px; }
+    .qa-body { padding: 1.2rem 1.4rem 1.4rem; }
+    .qa-qty-label { font-size: 0.72rem; color: var(--sage); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.7rem; }
+    .qa-qty-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .qa-qty-btn { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--mist); background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--forest); transition: border-color 0.2s, color 0.2s; }
+    .qa-qty-btn:hover { border-color: var(--fern); color: var(--fern); }
+    .qa-qty-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; min-width: 28px; text-align: center; color: var(--forest); }
+    .qa-subtotal { margin-left: auto; font-size: 0.82rem; color: var(--sage); }
+    .qa-add-btn { width: 100%; padding: 0.85rem; background: var(--fern); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; transition: background 0.3s; }
+    .qa-add-btn:hover { background: var(--moss); }
+    .qa-success { text-align: center; padding: 0.5rem 0 1rem; font-family: var(--font-display); font-size: 1.1rem; color: var(--forest); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .qa-actions { display: flex; flex-direction: column; gap: 0.6rem; }
+    .qa-btn-continue { width: 100%; padding: 0.75rem; background: none; border: 1.5px solid var(--mist); border-radius: 50px; cursor: pointer; font-size: 0.82rem; color: var(--forest); transition: border-color 0.2s; font-family: var(--font-body); }
+    .qa-btn-continue:hover { border-color: var(--forest); }
+    .qa-btn-cart { width: 100%; padding: 0.75rem; background: var(--forest); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.3s; font-family: var(--font-body); }
+    .qa-btn-cart:hover { background: var(--fern); }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: var(--forest);
+      padding: 5rem 3rem 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 80%, rgba(122,171,98,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero-eyebrow {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--fern); margin-bottom: 1rem;
+    }
+    .page-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300; color: var(--ivory); line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .page-hero-title em { font-style: italic; color: var(--mist); }
+    .page-hero-sub {
+      font-size: 0.95rem; font-weight: 300;
+      color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto;
+      line-height: 1.7;
+    }
+    .page-hero-count {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1.4rem;
+      border: 1px solid rgba(122,171,98,0.35);
+      border-radius: 50px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.6);
+    }
+    .page-hero-count strong { color: var(--fern); font-weight: 500; }
+
+    /* ── FILTRES ── */
+    .filters-bar {
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 1.4rem 3rem;
+      position: sticky; top: 61px; z-index: 90;
+    }
+    .filters-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      align-items: flex-start; gap: 1.4rem;
+    }
+    .filter-group {
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .filter-group-label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--sage);
+    }
+    .filter-chips {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .chip {
+      padding: 0.38rem 0.9rem;
+      border: 1.5px solid var(--mist);
+      border-radius: 50px;
+      font-size: 0.78rem; font-weight: 400;
+      color: var(--text-body); background: white;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .chip:hover { border-color: var(--sage); color: var(--forest); }
+    .chip.active {
+      background: var(--forest); border-color: var(--forest); color: white;
+    }
+
+    .filters-divider {
+      width: 1px; background: var(--mist);
+      align-self: stretch; margin: 0 0.2rem;
+    }
+
+    .search-wrap {
+      position: relative; flex: 1; min-width: 200px; max-width: 280px;
+      margin-left: auto;
+    }
+    .search-wrap svg {
+      position: absolute; left: 0.75rem; top: 50%;
+      transform: translateY(-50%);
+      width: 15px; height: 15px; color: #bbb; pointer-events: none;
+    }
+    .search-wrap input {
+      width: 100%; padding: 0.55rem 1rem 0.55rem 2.2rem;
+      border: 1.5px solid var(--mist); border-radius: 50px;
+      font-family: var(--font-body); font-size: 0.82rem;
+      background: var(--ivory); outline: none;
+      transition: border-color 0.3s;
+    }
+    .search-wrap input:focus { border-color: var(--fern); }
+
+    .filters-reset {
+      display: none;
+      align-self: flex-end;
+      padding: 0.38rem 0.9rem;
+      font-size: 0.75rem; color: var(--sage);
+      cursor: pointer; border: none; background: none;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .filters-reset:hover { color: var(--forest); }
+    .filters-reset.visible { display: block; }
+
+    /* ── RÉSULTATS ── */
+    .results-bar {
+      max-width: 1300px; margin: 2rem auto 0;
+      padding: 0 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .results-count {
+      font-size: 0.82rem; color: var(--sage); font-weight: 400;
+    }
+    .results-count strong { color: var(--forest); }
+
+    /* ── GRILLE ── */
+    .products-grid-wrap {
+      max-width: 1300px; margin: 1.5rem auto 6rem;
+      padding: 0 3rem;
+    }
+
+    .category-block { margin-bottom: 3.5rem; }
+    .category-block.hidden { display: none; }
+
+    .category-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 400;
+      color: var(--forest); margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--mist);
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .category-title span {
+      font-family: var(--font-body);
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #bbb;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.4rem;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s;
+      display: flex; flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.09);
+    }
+    .product-card.hidden { display: none; }
+
+    .card-img {
+      height: 160px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.4s;
+    }
+    .card-img-art {
+      width: 88px; height: 88px;
+      opacity: 0.45;
+      transition: transform 0.6s var(--ease), opacity 0.3s;
+      flex-shrink: 0;
+    }
+    .card-img-art svg { width: 100%; height: 100%; }
+    .product-card:hover .card-img-art {
+      transform: scale(1.12) rotate(4deg);
+      opacity: 0.65;
+    }
+    .card-photo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .product-card:hover .card-photo { transform: scale(1.07); }
+
+    .card-color-dot {
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.8);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .card-tag {
+      position: absolute; top: 0.7rem; right: 0.7rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .card-tag-rare { background: var(--gold); color: var(--forest); }
+    .card-tag-pop  { background: var(--fern); color: white; }
+
+    .card-body {
+      padding: 1rem 1.1rem 1.2rem;
+      flex: 1; display: flex; flex-direction: column; gap: 0.35rem;
+    }
+
+    .card-cat {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    .card-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 400; color: var(--forest);
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 0.78rem; font-weight: 300;
+      color: #888; line-height: 1.5; font-style: italic;
+    }
+
+    .card-tags {
+      display: flex; flex-wrap: wrap; gap: 0.3rem;
+      margin-top: 0.3rem;
+    }
+    .card-pill {
+      padding: 0.18rem 0.55rem;
+      border-radius: 50px;
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.06em;
+      background: var(--cream); color: var(--sage);
+    }
+
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: 0.8rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .card-unit {
+      font-size: 0.7rem; font-weight: 300; color: #bbb;
+    }
+
+    .card-cta {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      background: var(--forest); color: white;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-radius: 50px; border: none; cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .card-cta:hover { background: var(--fern); transform: scale(1.04); }
+    .card-cta.added { background: var(--fern); }
+
+    /* ── PANIER ── */
+    .cart-icon-btn {
+      position: relative;
+      background: none; border: 1.5px solid var(--mist);
+      border-radius: 50px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--forest); font-size: 0.82rem;
+      font-family: var(--font-body); font-weight: 400;
+      padding: 0.5rem 1rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cart-icon-btn:hover { border-color: var(--fern); color: var(--fern); }
+    .cart-badge {
+      position: absolute; top: -6px; right: -6px;
+      background: var(--fern); color: white;
+      font-size: 0.6rem; font-weight: 700;
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0);
+      transition: all 0.3s var(--ease);
+    }
+    .cart-badge.visible { opacity: 1; transform: scale(1); }
+
+    .cart-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4); z-index: 200;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed; top: 0; right: 0;
+      width: 380px; max-width: 95vw; height: 100vh;
+      background: var(--ivory); z-index: 201;
+      display: flex; flex-direction: column;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+      transform: translateX(100%);
+      transition: transform 0.4s var(--ease);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-header {
+      padding: 1.4rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--mist);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cart-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 400; color: var(--forest);
+    }
+    .cart-close {
+      background: none; border: none; cursor: pointer;
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--sage); font-size: 1.3rem; line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cart-close:hover { background: var(--mist); color: var(--forest); }
+
+    .cart-items {
+      flex: 1; overflow-y: auto;
+      padding: 1rem 1.5rem;
+      display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .cart-item {
+      display: flex; gap: 0.75rem; align-items: center;
+      padding: 0.75rem;
+      background: white; border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .cart-item-img {
+      width: 50px; height: 50px; border-radius: 8px;
+      object-fit: cover; flex-shrink: 0;
+    }
+    .cart-item-placeholder {
+      width: 50px; height: 50px; border-radius: 8px;
+      background: var(--cream); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name {
+      font-size: 0.84rem; font-weight: 500; color: var(--forest);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cart-item-unit { font-size: 0.7rem; color: var(--sage); margin-top: 1px; }
+    .cart-item-price { font-size: 0.78rem; color: var(--fern); font-weight: 500; margin-top: 3px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 0.35rem; }
+    .qty-btn {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 1.5px solid var(--mist); background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--forest);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .qty-btn:hover { border-color: var(--fern); color: var(--fern); }
+    .qty-value { font-size: 0.85rem; font-weight: 500; min-width: 18px; text-align: center; }
+    .cart-item-remove {
+      background: none; border: none; cursor: pointer;
+      color: #ccc; font-size: 1.1rem; line-height: 1; padding: 0 2px;
+      transition: color 0.2s;
+    }
+    .cart-item-remove:hover { color: #d04040; }
+
+    .cart-empty {
+      display: none; flex-direction: column;
+      align-items: center; gap: 0.8rem;
+      padding: 3rem 1.5rem; color: var(--sage);
+    }
+    .cart-empty.show { display: flex; }
+    .cart-empty-icon { font-size: 2.5rem; }
+    .cart-empty p { font-size: 0.88rem; }
+
+    .cart-footer {
+      padding: 1.2rem 1.5rem; border-top: 1px solid var(--mist);
+      display: none; flex-direction: column; gap: 1rem;
+    }
+    .cart-footer.show { display: flex; }
+    .cart-total {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-total span { font-size: 0.85rem; color: var(--sage); }
+    .cart-total strong {
+      font-family: var(--font-display); font-size: 1.35rem;
+      font-weight: 400; color: var(--forest);
+    }
+    .cart-checkout {
+      display: block; text-align: center;
+      padding: 0.9rem; background: var(--fern); color: white;
+      border-radius: 50px; font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .cart-checkout:hover { background: var(--moss); transform: translateY(-1px); }
+
+    /* ── AUCUN RÉSULTAT ── */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+    .no-results.visible { display: block; }
+    .no-results-icon {
+      font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.3;
+    }
+    .no-results p {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 300; color: var(--sage);
+    }
+    .no-results button {
+      margin-top: 1.2rem;
+      padding: 0.6rem 1.4rem;
+      background: none; border: 1.5px solid var(--mist);
+      border-radius: 50px; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.82rem; color: var(--sage);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .no-results button:hover { border-color: var(--fern); color: var(--forest); }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      background: var(--charcoal); color: rgba(255,255,255,0.4);
+      text-align: center; padding: 2rem;
+      font-size: 0.78rem;
+    }
+    .page-footer a { color: var(--fern); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .products-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1.5rem; }
+      .results-bar, .products-grid-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .page-hero { padding: 4rem 1.5rem 3rem; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+      /* Filter bar: single scrollable row instead of wrapping */
+      .filters-bar { padding: 0; top: 57px; overflow: hidden; }
+      .filters-inner {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.9rem 1.5rem;
+        gap: 0.8rem;
+        align-items: center;
+        scrollbar-width: none;
+      }
+      .filters-inner::-webkit-scrollbar { display: none; }
+      .filter-group { flex-shrink: 0; }
+      .filter-group-label { display: none; }
+      .filters-divider { display: none; }
+      .search-wrap { min-width: 150px; max-width: 150px; margin-left: 0; flex-shrink: 0; }
+      .filters-reset { align-self: center; flex-shrink: 0; }
+    }
+    @media (max-width: 600px) {
+      .nav-cta-btn { display: none; }
+      .cart-drawer { width: 100%; max-width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none">
+        <path d="M14 26C14 26 4 18.5 4 11C4 6.58 8.03 3 14 3C19.97 3 24 6.58 24 11C24 18.5 14 26 14 26Z" fill="currentColor" opacity="0.2"/>
+        <path d="M14 3V20M14 12C14 12 10 9 7 9M14 16C14 16 18 13 21 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Pousses Vivantes
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Retour
+      </a>
+      <button class="cart-icon-btn" onclick="openCart()" aria-label="Panier">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2h1.8l2 7.5h6.4L14 5H4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="13" r="1" fill="currentColor"/><circle cx="11" cy="13" r="1" fill="currentColor"/></svg>
+        Panier
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <a href="pro.html" class="nav-cta-btn">Commander</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <p class="page-hero-eyebrow">Catalogue complet</p>
+    <h1 class="page-hero-title">Nos <em>40 Variétés</em> de Micro-pousses</h1>
+    <p class="page-hero-sub">Récoltées sur commande à Casablanca. Livrées en 24h dans les plus grands restaurants du Maroc.</p>
+    <div class="page-hero-count">
+      <strong id="heroCount">40</strong> variétés disponibles
+    </div>
+  </section>
+
+  <!-- FILTRES -->
+  <div class="filters-bar">
+    <div class="filters-inner">
+
+      <div class="filter-group">
+        <div class="filter-group-label">Famille</div>
+        <div class="filter-chips" id="filterFamille">
+          <button class="chip active" data-famille="all">Toutes</button>
+          <button class="chip" data-famille="Légumes à feuilles">Feuilles</button>
+          <button class="chip" data-famille="Crucifères">Crucifères</button>
+          <button class="chip" data-famille="Aromatiques">Aromatiques</button>
+          <button class="chip" data-famille="Légumineuses">Légumineuses</button>
+          <button class="chip" data-famille="Céréales & Graines">Céréales</button>
+          <button class="chip" data-famille="Spécialités & Rares">Rares</button>
+        </div>
+      </div>
+
+      <div class="filters-divider"></div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Goût</div>
+        <div class="filter-chips" id="filterGout">
+          <button class="chip active" data-gout="all">Tous</button>
+          <button class="chip" data-gout="doux">Doux</button>
+          <button class="chip" data-gout="piquant">Piquant</button>
+          <button class="chip" data-gout="amer">Amer</button>
+          <button class="chip" data-gout="anisé">Anisé</button>
+          <button class="chip" data-gout="sucré">Sucré</button>
+          <button class="chip" data-gout="acidulé">Acidulé</button>
+          <button class="chip" data-gout="terreux">Terreux</button>
+        </div>
+      </div>
+
+      <div class="filters-divider"></div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Couleur</div>
+        <div class="filter-chips" id="filterCouleur">
+          <button class="chip active" data-couleur="all">Toutes</button>
+          <button class="chip" data-couleur="vert">🟢 Vert</button>
+          <button class="chip" data-couleur="violet">🟣 Violet</button>
+          <button class="chip" data-couleur="rouge">🔴 Rouge</button>
+          <button class="chip" data-couleur="jaune">🟡 Jaune</button>
+          <button class="chip" data-couleur="blanc">⚪ Blanc</button>
+        </div>
+      </div>
+
+      <div class="filters-divider"></div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Usage</div>
+        <div class="filter-chips" id="filterUsage">
+          <button class="chip active" data-usage="all">Tous</button>
+          <button class="chip" data-usage="garniture">Garniture</button>
+          <button class="chip" data-usage="salade">Salade</button>
+          <button class="chip" data-usage="sushi">Sushi / Tartare</button>
+          <button class="chip" data-usage="dessert">Dessert</button>
+          <button class="chip" data-usage="jus">Jus / Smoothie</button>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M15 15l-3-3" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Rechercher…" oninput="applyFilters()" />
+      </div>
+
+      <button class="filters-reset" id="filtersReset" onclick="resetFilters()">Réinitialiser</button>
+    </div>
+  </div>
+
+  <!-- BARRE RÉSULTATS -->
+  <div class="results-bar">
+    <p class="results-count"><strong id="resultsCount">40</strong> variété(s) trouvée(s)</p>
+  </div>
+
+  <!-- GRILLE PRODUITS -->
+  <div class="products-grid-wrap">
+    <div id="productsContainer"></div>
+    <div class="no-results" id="noResults">
+      <div class="no-results-icon">🌱</div>
+      <p>Aucune variété ne correspond à votre recherche.</p>
+      <button onclick="resetFilters()">Voir toutes les variétés</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    © 2024 Pousses Vivantes · Casablanca, Maroc ·
+    <a href="index.html">Accueil</a> · <a href="pro.html">Commander</a>
+  </footer>
+
+  <script>
+    const CATALOGUE = [
+      // ── Légumes à feuilles ──────────────────────────
+      {
+        id:'v1',  cat:'Légumes à feuilles',
+        name:'Tournesol',
+        desc:'Goût de noisette, texture croquante',
+        unit:'barquette 100g',
+        gouts:['doux','terreux'],
+        couleur:'vert', couleurHex:'#7aab62',
+        usages:['garniture','salade'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v2',  cat:'Légumes à feuilles',
+        name:'Petit Pois',
+        desc:'Saveur sucrée et délicate',
+        unit:'barquette 120g',
+        gouts:['doux','sucré'],
+        couleur:'vert', couleurHex:'#5a9e4a',
+        usages:['garniture','salade','dessert'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v3',  cat:'Légumes à feuilles',
+        name:'Épinards',
+        desc:'Doux et légèrement terreux',
+        unit:'barquette 80g',
+        gouts:['doux','terreux'],
+        couleur:'vert', couleurHex:'#3d7a3d',
+        usages:['salade','jus'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v4',  cat:'Légumes à feuilles',
+        name:'Roquette',
+        desc:'Poivré et légèrement piquant',
+        unit:'barquette 60g',
+        gouts:['piquant','amer'],
+        couleur:'vert', couleurHex:'#6aaa55',
+        usages:['garniture','salade','sushi'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v5',  cat:'Légumes à feuilles',
+        name:'Mizuna',
+        desc:'Notes de moutarde, très fin',
+        unit:'barquette 70g',
+        gouts:['piquant','doux'],
+        couleur:'vert', couleurHex:'#8ab870',
+        usages:['garniture','salade','sushi'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v6',  cat:'Légumes à feuilles',
+        name:'Amarante Rouge',
+        desc:'Doux, légèrement terreux',
+        unit:'barquette 60g',
+        gouts:['doux','terreux'],
+        couleur:'rouge', couleurHex:'#b03060',
+        usages:['garniture','salade'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v7',  cat:'Légumes à feuilles',
+        name:'Pak Choï',
+        desc:'Délicat, légèrement sucré',
+        unit:'barquette 80g',
+        gouts:['doux','sucré'],
+        couleur:'vert', couleurHex:'#5aaa68',
+        usages:['garniture','sushi'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v8',  cat:'Légumes à feuilles',
+        name:'Kale',
+        desc:'Légèrement amer, robuste',
+        unit:'barquette 70g',
+        gouts:['amer','terreux'],
+        couleur:'vert', couleurHex:'#2d6e2d',
+        usages:['salade','jus'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v9',  cat:'Légumes à feuilles',
+        name:'Poireau',
+        desc:'Oignon doux, fin',
+        unit:'barquette 80g',
+        gouts:['doux'],
+        couleur:'vert', couleurHex:'#80b060',
+        usages:['garniture','salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v10', cat:'Légumes à feuilles',
+        name:'Oseille',
+        desc:'Acidulé, citronné',
+        unit:'barquette 60g',
+        gouts:['acidulé'],
+        couleur:'vert', couleurHex:'#9abe70',
+        usages:['garniture','dessert'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      // ── Crucifères ──────────────────────────────────
+      {
+        id:'v11', cat:'Crucifères',
+        name:'Radis Daikon',
+        desc:'Piquant et poivré',
+        unit:'barquette 80g',
+        gouts:['piquant'],
+        couleur:'blanc', couleurHex:'#e8e8d8',
+        usages:['garniture','sushi'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v12', cat:'Crucifères',
+        name:'Radis Cherry Belle',
+        desc:'Piquant léger, croquant',
+        unit:'barquette 80g',
+        gouts:['piquant','doux'],
+        couleur:'rouge', couleurHex:'#d04050',
+        usages:['garniture','salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v13', cat:'Crucifères',
+        name:'Radis Sango',
+        desc:'Piquant, couleur violette intense',
+        unit:'barquette 80g',
+        gouts:['piquant'],
+        couleur:'violet', couleurHex:'#7040a0',
+        usages:['garniture','salade'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v14', cat:'Crucifères',
+        name:'Moutarde Brune',
+        desc:'Chaleur douce, épicé',
+        unit:'barquette 80g',
+        gouts:['piquant'],
+        couleur:'vert', couleurHex:'#8ab04a',
+        usages:['garniture','salade'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v15', cat:'Crucifères',
+        name:'Moutarde Rouge',
+        desc:'Épicé et légèrement fruité',
+        unit:'barquette 80g',
+        gouts:['piquant'],
+        couleur:'rouge', couleurHex:'#c04848',
+        usages:['garniture','sushi'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v16', cat:'Crucifères',
+        name:'Chou Rouge',
+        desc:'Délicat, légèrement sucré',
+        unit:'barquette 90g',
+        gouts:['doux','sucré'],
+        couleur:'violet', couleurHex:'#804080',
+        usages:['garniture','salade'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v17', cat:'Crucifères',
+        name:'Brocoli',
+        desc:'Légèrement amer, végétal',
+        unit:'barquette 70g',
+        gouts:['amer','terreux'],
+        couleur:'vert', couleurHex:'#408040',
+        usages:['salade','jus'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v18', cat:'Crucifères',
+        name:'Chou-fleur',
+        desc:'Doux et crémeux',
+        unit:'barquette 80g',
+        gouts:['doux'],
+        couleur:'blanc', couleurHex:'#e0e0d0',
+        usages:['garniture','salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      // ── Aromatiques ─────────────────────────────────
+      {
+        id:'v19', cat:'Aromatiques',
+        name:'Basilic Genovese',
+        desc:'Anisé et floral',
+        unit:'barquette 60g',
+        gouts:['anisé','doux'],
+        couleur:'vert', couleurHex:'#50a050',
+        usages:['garniture','dessert'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v20', cat:'Aromatiques',
+        name:'Basilic Citron',
+        desc:'Citronné et très frais',
+        unit:'barquette 60g',
+        gouts:['anisé','acidulé'],
+        couleur:'jaune', couleurHex:'#c8c850',
+        usages:['garniture','dessert','salade'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v21', cat:'Aromatiques',
+        name:'Coriandre',
+        desc:'Intense et citronné',
+        unit:'barquette 60g',
+        gouts:['anisé','acidulé'],
+        couleur:'vert', couleurHex:'#60b060',
+        usages:['garniture','sushi'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v22', cat:'Aromatiques',
+        name:'Aneth',
+        desc:'Anisé et frais',
+        unit:'barquette 60g',
+        gouts:['anisé'],
+        couleur:'vert', couleurHex:'#78b870',
+        usages:['garniture','sushi'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v23', cat:'Aromatiques',
+        name:'Persil',
+        desc:'Frais et herbacé',
+        unit:'barquette 60g',
+        gouts:['doux'],
+        couleur:'vert', couleurHex:'#30a030',
+        usages:['garniture','salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v24', cat:'Aromatiques',
+        name:'Fenouil',
+        desc:'Anisé et légèrement sucré',
+        unit:'barquette 60g',
+        gouts:['anisé','sucré'],
+        couleur:'vert', couleurHex:'#90c080',
+        usages:['garniture','dessert'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v25', cat:'Aromatiques',
+        name:'Céleri',
+        desc:'Aromatique et frais',
+        unit:'barquette 60g',
+        gouts:['doux'],
+        couleur:'vert', couleurHex:'#70b060',
+        usages:['garniture','jus'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v26', cat:'Aromatiques',
+        name:'Cerfeuil',
+        desc:'Anisé et très délicat',
+        unit:'barquette 60g',
+        gouts:['anisé','doux'],
+        couleur:'vert', couleurHex:'#98c880',
+        usages:['garniture','salade'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      // ── Légumineuses ────────────────────────────────
+      {
+        id:'v27', cat:'Légumineuses',
+        name:'Lentille Verte',
+        desc:'Terreux et noiseté',
+        unit:'barquette 100g',
+        gouts:['terreux','doux'],
+        couleur:'vert', couleurHex:'#808060',
+        usages:['salade','garniture'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v28', cat:'Légumineuses',
+        name:'Pois Chiche',
+        desc:'Noiseté et dense',
+        unit:'barquette 100g',
+        gouts:['doux','terreux'],
+        couleur:'jaune', couleurHex:'#c8b060',
+        usages:['salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v29', cat:'Légumineuses',
+        name:'Fenugrec',
+        desc:'Légèrement amer et épicé',
+        unit:'barquette 80g',
+        gouts:['amer','piquant'],
+        couleur:'jaune', couleurHex:'#d0c070',
+        usages:['garniture'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v30', cat:'Légumineuses',
+        name:'Trèfle Rouge',
+        desc:'Doux et légèrement sucré',
+        unit:'barquette 80g',
+        gouts:['doux','sucré'],
+        couleur:'rouge', couleurHex:'#c06060',
+        usages:['salade','garniture'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v31', cat:'Légumineuses',
+        name:'Alfalfa (Luzerne)',
+        desc:'Léger, neutre et croquant',
+        unit:'barquette 70g',
+        gouts:['doux'],
+        couleur:'vert', couleurHex:'#90c870',
+        usages:['salade','jus'],
+        tag:'pop',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v32', cat:'Légumineuses',
+        name:'Haricot Mungo',
+        desc:'Doux et croquant',
+        unit:'barquette 90g',
+        gouts:['doux'],
+        couleur:'vert', couleurHex:'#70b870',
+        usages:['salade','sushi'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      // ── Céréales & Graines ──────────────────────────
+      {
+        id:'v33', cat:'Céréales & Graines',
+        name:'Sarrasin',
+        desc:'Noisette, légèrement amer',
+        unit:'barquette 100g',
+        gouts:['terreux','amer'],
+        couleur:'vert', couleurHex:'#98a860',
+        usages:['salade','garniture'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v34', cat:'Céréales & Graines',
+        name:'Blé',
+        desc:'Sucré et légèrement terreux',
+        unit:'barquette 100g',
+        gouts:['sucré','terreux'],
+        couleur:'vert', couleurHex:'#a8b850',
+        usages:['jus','salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v35', cat:'Céréales & Graines',
+        name:'Quinoa',
+        desc:'Léger et croustillant',
+        unit:'barquette 80g',
+        gouts:['doux'],
+        couleur:'blanc', couleurHex:'#d8d8b8',
+        usages:['garniture','salade'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v36', cat:'Céréales & Graines',
+        name:'Avoine',
+        desc:'Doux et crémeux',
+        unit:'barquette 100g',
+        gouts:['doux','sucré'],
+        couleur:'vert', couleurHex:'#b0c880',
+        usages:['jus','salade'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v37', cat:'Céréales & Graines',
+        name:'Orge',
+        desc:'Doux, légèrement sucré',
+        unit:'barquette 100g',
+        gouts:['doux','sucré'],
+        couleur:'vert', couleurHex:'#a8c060',
+        usages:['jus'],
+        tag:'',
+        img:'barquette-propre.png'
+      },
+      // ── Spécialités & Rares ─────────────────────────
+      {
+        id:'v38', cat:'Spécialités & Rares',
+        name:'Betterave Rouge',
+        desc:'Terreux, sucré, très coloré',
+        unit:'barquette 90g',
+        gouts:['sucré','terreux'],
+        couleur:'rouge', couleurHex:'#a02040',
+        usages:['garniture','salade','dessert'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v39', cat:'Spécialités & Rares',
+        name:'Capucine',
+        desc:'Poivré, piquant et floral',
+        unit:'barquette 60g',
+        gouts:['piquant','anisé'],
+        couleur:'jaune', couleurHex:'#e09030',
+        usages:['garniture','dessert'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      },
+      {
+        id:'v40', cat:'Spécialités & Rares',
+        name:'Shiso Vert',
+        desc:'Anisé, menthé et floral',
+        unit:'barquette 60g',
+        gouts:['anisé','doux'],
+        couleur:'vert', couleurHex:'#50a850',
+        usages:['garniture','sushi','dessert'],
+        tag:'rare',
+        img:'barquette-propre.png'
+      }
+    ];
+
+    // ── ÉTAT DES FILTRES ─────────────────────────────
+    let activeFilters = {
+      famille: 'all',
+      gout:    'all',
+      couleur: 'all',
+      usage:   'all',
+      search:  ''
+    };
+
+    // ── PHOTOS LOCALES ────────────────────────────────
+    const P = 'Liste complète des variétés de micro pousses comestibles_fichiers/';
+    const PHOTO_URLS = {
+      v1:  P+'667484df2a4ea_micro-pousse-tournesol.jpg',
+      v2:  P+'66753e3d29b4b_micro-pousse-pois-vert.jpg',
+      v3:  P+'6676d8f7549bf_micro-pousse-epinard.jpg',
+      v4:  P+'6674832f23183_micro-pousses-Roquette.JPG',
+      v5:  P+'667488661f15b_micro-pousse-mizuna.jpg',
+      v6:  P+'66748a2311ce2_micro-pousse-amarante.jpg',
+      v7:  P+'66ab477a55d78_micropousse-pak-choi.jpg',
+      v8:  P+'667549575a426_micro-pousse-chou-kale.jpg',
+      v9:  P+'66753dc752c6c_micro-pousse-poireau.jpg',
+      v10: P+'6675312d47a51_micro-pousse-oseille.jpg',
+      v11: P+'6674863d53553_micro-pousse-radis.jpg',
+      v12: P+'6674863d53553_micro-pousse-radis.jpg',
+      v13: P+'6674863d53553_micro-pousse-radis.jpg',
+      v14: P+'667485905094c_micro-pousse-moutarde.JPG',
+      v15: P+'667485905094c_micro-pousse-moutarde.JPG',
+      v16: P+'6674812d9093c_micro-pousses-chou-rouge.jpg',
+      v17: P+'66747fb00efa7_micro-pousses-brocoli.jpg',
+      v18: P+'6676d5b72ab37_micro-pousse-choufleur.jpg',
+      v19: P+'667480b932e60_micro-pousses-basilic.jpg',
+      v20: P+'667480b932e60_micro-pousses-basilic.jpg',
+      v21: P+'667542d029cb7_micro-pousses-coriandre.jpg',
+      v22: P+'6674847ca7977_micro-pousse-aneth.jpg',
+      v23: P+'667482cd2b360_micro-pousses-Persil.jpg',
+      v24: P+'667533ca15862_micro-pousse-fenouil.jpg',
+      v25: P+'6675330c6ebfa_micro-pousse-celeri.jpg',
+      v26: P+'6676d3af46b6a_cerfeuil-micro-pousse.jpg',
+      v27: P+'66748216751a7_micro-pousse-Lentille.JPG',
+      v28: P+'66771b6cdf32d_micro-pousse-pois-chiche.jpg',
+      v29: P+'66748199ef764_micro-pousses-fenugrec.jpg',
+      v30: P+'667720db1c7c3_micro-pousse-trefle.jpg',
+      v31: P+'667547fb49290_micro-pousse-alfalfa.jpg',
+      v32: P+'66753aaedc329_micro-pousses-haricot-mungo.jpg',
+      v33: P+'667483a737c67_micro-pousses-sarrasin.jpg',
+      v34: P+'66748408a10f2_micro-pousse-herbe-de-ble.jpg',
+      v35: P+'667543c45c22a_micro-pousse-herbe-d-orge.jpg',
+      v36: P+'667543c45c22a_micro-pousse-herbe-d-orge.jpg',
+      v37: P+'667543c45c22a_micro-pousse-herbe-d-orge.jpg',
+      v38: P+'6675420bf164b_micro-pousse-betterave.jpg',
+      v39: P+'6674804a1fb9a_micro-pousses-capucine.JPG',
+      v40: P+'667488661f15b_micro-pousse-mizuna.jpg'
+    };
+
+    // ── ILLUSTRATIONS PAR CATÉGORIE ──────────────────
+    function getCatArt(cat) {
+      const arts = {
+        'Légumes à feuilles': `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 68 C40 68 12 52 12 32 C12 18 26 12 40 12 C54 12 68 18 68 32 C68 52 40 68 40 68Z"/>
+          <line x1="40" y1="68" x2="40" y2="12"/>
+          <path d="M40 48 C28 40 18 36 13 32"/>
+          <path d="M40 48 C52 40 62 36 67 32"/>
+          <path d="M40 34 C32 28 22 26 16 24"/>
+          <path d="M40 34 C48 28 58 26 64 24"/>
+        </svg>`,
+        'Crucifères': `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="40" cy="40" r="5"/>
+          <path d="M40 12 C36 22 36 30 40 35 C44 30 44 22 40 12Z"/>
+          <path d="M40 68 C36 58 36 50 40 45 C44 50 44 58 40 68Z"/>
+          <path d="M12 40 C22 36 30 36 35 40 C30 44 22 44 12 40Z"/>
+          <path d="M68 40 C58 36 50 36 45 40 C50 44 58 44 68 40Z"/>
+          <circle cx="40" cy="22" r="3.5"/>
+          <circle cx="40" cy="58" r="3.5"/>
+          <circle cx="22" cy="40" r="3.5"/>
+          <circle cx="58" cy="40" r="3.5"/>
+        </svg>`,
+        'Aromatiques': `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="40" y1="68" x2="40" y2="18"/>
+          <path d="M40 36 C40 36 26 32 22 20 C32 16 40 24 40 36Z"/>
+          <path d="M40 36 C40 36 54 32 58 20 C48 16 40 24 40 36Z"/>
+          <path d="M40 52 C40 52 26 48 22 36 C32 32 40 40 40 52Z"/>
+          <path d="M40 52 C40 52 54 48 58 36 C48 32 40 40 40 52Z"/>
+          <path d="M40 66 C40 66 28 62 24 52 C34 48 40 56 40 66Z"/>
+          <path d="M40 66 C40 66 52 62 56 52 C46 48 40 56 40 66Z"/>
+        </svg>`,
+        'Légumineuses': `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 48 C18 28 28 20 40 20 C52 20 62 28 62 48 C62 62 52 68 40 68 C28 68 18 62 18 48Z"/>
+          <circle cx="30" cy="50" r="6"/>
+          <circle cx="40" cy="44" r="6"/>
+          <circle cx="50" cy="50" r="6"/>
+          <path d="M40 20 C40 14 44 10 50 8"/>
+          <path d="M44 12 C48 10 52 10 54 12"/>
+        </svg>`,
+        'Céréales & Graines': `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="40" y1="70" x2="40" y2="24"/>
+          <ellipse cx="40" cy="19" rx="5" ry="8"/>
+          <path d="M40 42 L54 30"/><path d="M40 42 L26 30"/>
+          <path d="M40 52 L56 38"/><path d="M40 52 L24 38"/>
+          <path d="M40 62 L58 46"/><path d="M40 62 L22 46"/>
+        </svg>`,
+        'Spécialités & Rares': `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 10 L44.5 27 L62 27 L48 37 L53 54 L40 44 L27 54 L32 37 L18 27 L35.5 27 Z"/>
+          <circle cx="40" cy="40" r="4"/>
+        </svg>`
+      };
+      return arts[cat] || arts['Légumes à feuilles'];
+    }
+
+    // ── RENDU INITIAL ────────────────────────────────
+    function render() {
+      const container = document.getElementById('productsContainer');
+
+      // Grouper par catégorie
+      const cats = [...new Set(CATALOGUE.map(p => p.cat))];
+      container.innerHTML = cats.map(cat => `
+        <div class="category-block" data-cat="${cat}" id="cat_${cat.replace(/\W/g,'_')}">
+          <h2 class="category-title">
+            ${cat}
+            <span>${CATALOGUE.filter(p => p.cat === cat).length} variétés</span>
+          </h2>
+          <div class="products-grid">
+            ${CATALOGUE.filter(p => p.cat === cat).map(p => `
+              <div class="product-card" data-id="${p.id}"
+                data-cat="${p.cat}"
+                data-gouts="${p.gouts.join(',')}"
+                data-couleur="${p.couleur}"
+                data-usages="${p.usages.join(',')}">
+                <div class="card-img" style="background: linear-gradient(155deg, #f8f4ee 0%, ${p.couleurHex}40 100%)">
+                  ${PHOTO_URLS[p.id]
+                    ? `<img class="card-photo" src="${PHOTO_URLS[p.id]}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+                    : ''}
+                  <div class="card-img-art" style="color:${p.couleurHex};${PHOTO_URLS[p.id] ? 'display:none' : ''}">
+                    ${getCatArt(p.cat)}
+                  </div>
+                  <div class="card-color-dot" style="background:${p.couleurHex}"></div>
+                  ${p.tag === 'rare' ? '<span class="card-tag card-tag-rare">Rare</span>' : ''}
+                  ${p.tag === 'pop'  ? '<span class="card-tag card-tag-pop">Populaire</span>' : ''}
+                </div>
+                <div class="card-body">
+                  <div class="card-cat">${p.cat}</div>
+                  <div class="card-name">${p.name}</div>
+                  <div class="card-desc">${p.desc}</div>
+                  <div class="card-tags">
+                    ${p.gouts.map(g => `<span class="card-pill">${g}</span>`).join('')}
+                    ${p.usages.map(u => `<span class="card-pill">${u}</span>`).join('')}
+                  </div>
+                  <div class="card-footer">
+                    <span class="card-unit">${p.unit}</span>
+                    <button class="card-cta" data-id="${p.id}" onclick="addToCart('${p.id}')">
+                      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1.5 1.5h1.8l1.4 6h5.5L12 4.5H4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="6.5" cy="11.5" r="1" fill="currentColor"/><circle cx="10" cy="11.5" r="1" fill="currentColor"/></svg>
+                      Ajouter
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ── APPLICATION DES FILTRES ──────────────────────
+    function applyFilters() {
+      activeFilters.search = document.getElementById('searchInput').value.trim().toLowerCase();
+
+      let visible = 0;
+
+      document.querySelectorAll('.product-card').forEach(card => {
+        const cat    = card.dataset.cat;
+        const gouts  = card.dataset.gouts;
+        const couleur= card.dataset.couleur;
+        const usages = card.dataset.usages;
+        const name   = card.querySelector('.card-name').textContent.toLowerCase();
+        const desc   = card.querySelector('.card-desc').textContent.toLowerCase();
+
+        const matchFamille = activeFilters.famille === 'all' || cat === activeFilters.famille;
+        const matchGout    = activeFilters.gout    === 'all' || gouts.includes(activeFilters.gout);
+        const matchCouleur = activeFilters.couleur === 'all' || couleur === activeFilters.couleur;
+        const matchUsage   = activeFilters.usage   === 'all' || usages.includes(activeFilters.usage);
+        const matchSearch  = !activeFilters.search || name.includes(activeFilters.search) || desc.includes(activeFilters.search);
+
+        const show = matchFamille && matchGout && matchCouleur && matchUsage && matchSearch;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      // Masquer les blocs catégorie vides
+      document.querySelectorAll('.category-block').forEach(block => {
+        const hasVisible = block.querySelectorAll('.product-card:not(.hidden)').length > 0;
+        block.classList.toggle('hidden', !hasVisible);
+      });
+
+      // Mise à jour compteurs
+      document.getElementById('resultsCount').textContent = visible;
+      document.getElementById('heroCount').textContent = visible;
+
+      // Aucun résultat
+      document.getElementById('noResults').classList.toggle('visible', visible === 0);
+
+      // Bouton reset
+      const hasFilter = Object.values(activeFilters).some(v => v !== 'all' && v !== '');
+      document.getElementById('filtersReset').classList.toggle('visible', hasFilter);
+    }
+
+    // ── GESTION DES CHIPS ────────────────────────────
+    function setupChips(groupId, filterKey) {
+      document.getElementById(groupId).querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.getElementById(groupId).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          activeFilters[filterKey] = chip.dataset[filterKey] || chip.dataset.famille || chip.dataset.gout || chip.dataset.couleur || chip.dataset.usage;
+          applyFilters();
+        });
+      });
+    }
+
+    function resetFilters() {
+      activeFilters = { famille:'all', gout:'all', couleur:'all', usage:'all', search:'' };
+      document.getElementById('searchInput').value = '';
+      ['filterFamille','filterGout','filterCouleur','filterUsage'].forEach(id => {
+        document.getElementById(id).querySelectorAll('.chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+      });
+      applyFilters();
+    }
+
+    // ── INIT ─────────────────────────────────────────
+    render();
+    setupChips('filterFamille', 'famille');
+    setupChips('filterGout',    'gout');
+    setupChips('filterCouleur', 'couleur');
+    setupChips('filterUsage',   'usage');
+
+    // ── PANIER (localStorage partagé) ───────────────
+    const CART_KEY = 'pv_cart';
+    const PRICE = 35;
+    let currentQAProduct = null;
+    let qaQty = 1;
+
+    function loadCart()  { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e) { return []; } }
+    function saveCart(c) { localStorage.setItem(CART_KEY, JSON.stringify(c)); }
+
+    function addToCart(productId) {
+      const product = CATALOGUE.find(p => p.id === productId);
+      if (!product) return;
+      currentQAProduct = { id: productId, name: product.name, unit: product.unit, img: PHOTO_URLS[productId] || null, price: PRICE };
+      qaQty = 1;
+      document.getElementById('qaImg').src = currentQAProduct.img || '';
+      document.getElementById('qaImg').style.display = currentQAProduct.img ? 'block' : 'none';
+      document.getElementById('qaProductName').textContent = product.name;
+      document.getElementById('qaProductUnit').textContent = product.unit;
+      document.getElementById('qaProductPrice').textContent = PRICE + ' MAD / barquette';
+      document.getElementById('qaQtyValue').textContent = 1;
+      document.getElementById('qaSubtotal').textContent = PRICE + ' MAD';
+      document.getElementById('qaStep1').style.display = '';
+      document.getElementById('qaStep2').style.display = 'none';
+      document.getElementById('qaModal').classList.add('open');
+      document.getElementById('qaOverlay').classList.add('open');
+    }
+
+    function closeQAModal() {
+      document.getElementById('qaModal').classList.remove('open');
+      document.getElementById('qaOverlay').classList.remove('open');
+    }
+
+    function changeQAQty(delta) {
+      qaQty = Math.max(1, qaQty + delta);
+      document.getElementById('qaQtyValue').textContent = qaQty;
+      if (currentQAProduct) document.getElementById('qaSubtotal').textContent = (qaQty * PRICE) + ' MAD';
+    }
+
+    function confirmQAAdd() {
+      if (!currentQAProduct) return;
+      const cart = loadCart();
+      const existing = cart.find(i => i.id === currentQAProduct.id);
+      if (existing) { existing.qty += qaQty; } else { cart.push({ ...currentQAProduct, qty: qaQty }); }
+      saveCart(cart);
+      updateCartBadge();
+      document.getElementById('qaStep1').style.display = 'none';
+      document.getElementById('qaStep2').style.display = '';
+    }
+
+    function updateCartBadge() {
+      const total = loadCart().reduce((s, i) => s + i.qty, 0);
+      const badge = document.getElementById('cartBadge');
+      if (badge) { badge.textContent = total; badge.classList.toggle('visible', total > 0); }
+    }
+
+    function openCart() {
+      renderCartDrawer();
+      document.getElementById('cartDrawer').classList.add('open');
+      document.getElementById('cartOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeQAModal();
+    }
+
+    function closeCart() {
+      document.getElementById('cartDrawer').classList.remove('open');
+      document.getElementById('cartOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function removeFromCart(id) {
+      saveCart(loadCart().filter(i => i.id !== id));
+      updateCartBadge(); renderCartDrawer();
+    }
+
+    function updateQty(id, delta) {
+      const cart = loadCart();
+      const item = cart.find(i => i.id === id);
+      if (!item) return;
+      item.qty += delta;
+      saveCart(item.qty <= 0 ? cart.filter(i => i.id !== id) : cart);
+      updateCartBadge(); renderCartDrawer();
+    }
+
+    function renderCartDrawer() {
+      const cart = loadCart();
+      const itemsEl  = document.getElementById('cartItems');
+      const emptyEl  = document.getElementById('cartEmpty');
+      const footerEl = document.getElementById('cartFooter');
+      const totalEl  = document.getElementById('cartTotal');
+      if (cart.length === 0) {
+        itemsEl.innerHTML = '';
+        emptyEl.classList.add('show');
+        footerEl.classList.remove('show');
+        return;
+      }
+      emptyEl.classList.remove('show');
+      footerEl.classList.add('show');
+      totalEl.textContent = cart.reduce((s, i) => s + i.qty * i.price, 0) + ' MAD';
+      itemsEl.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          ${item.img ? `<img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">` : `<div class="cart-item-placeholder">🌱</div>`}
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-unit">${item.unit}</div>
+            <div class="cart-item-price">${item.qty * item.price} MAD</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="updateQty('${item.id}',-1)">−</button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn" onclick="updateQty('${item.id}',1)">+</button>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">×</button>
+        </div>`).join('');
+    }
+
+    updateCartBadge();
+  </script>
+
+  <!-- QUICK-ADD MODAL -->
+  <div class="qa-overlay" id="qaOverlay" onclick="closeQAModal()"></div>
+  <div class="qa-modal" id="qaModal">
+    <button class="qa-close" onclick="closeQAModal()">×</button>
+    <div class="qa-modal-top">
+      <img class="qa-img" id="qaImg" src="" alt="" />
+      <div>
+        <div class="qa-product-name" id="qaProductName"></div>
+        <div class="qa-product-unit" id="qaProductUnit"></div>
+        <div class="qa-product-price" id="qaProductPrice"></div>
+      </div>
+    </div>
+    <div class="qa-body">
+      <div id="qaStep1">
+        <div class="qa-qty-label">Quantité</div>
+        <div class="qa-qty-row">
+          <button class="qa-qty-btn" onclick="changeQAQty(-1)">−</button>
+          <span class="qa-qty-value" id="qaQtyValue">1</span>
+          <button class="qa-qty-btn" onclick="changeQAQty(1)">+</button>
+          <span class="qa-subtotal" id="qaSubtotal">35 MAD</span>
+        </div>
+        <button class="qa-add-btn" onclick="confirmQAAdd()">Ajouter au panier</button>
+      </div>
+      <div id="qaStep2" style="display:none">
+        <div class="qa-success">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#7aab62" stroke-width="1.5"/><path d="M6 10l3 3 5-5" stroke="#7aab62" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Produit ajouté !
+        </div>
+        <div class="qa-actions">
+          <button class="qa-btn-continue" onclick="closeQAModal()">← Continuer mes achats</button>
+          <button class="qa-btn-cart" onclick="openCart()">Mon panier / Payer →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANIER DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Mon panier</h3>
+      <button class="cart-close" onclick="closeCart()">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty show" id="cartEmpty">
+      <div class="cart-empty-icon">🌱</div>
+      <p>Votre panier est vide</p>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-total">
+        <span>Total estimé</span>
+        <strong id="cartTotal">0 MAD</strong>
+      </div>
+      <a href="paiement.html" class="cart-checkout">Finaliser la commande →</a>
+    </div>
+  </div>
+</body>
+</html>

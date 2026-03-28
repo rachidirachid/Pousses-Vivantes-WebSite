@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Professionnel — Pousses Vivantes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --forest:    #1a2e1a;
+      --moss:      #2d4a2d;
+      --sage:      #5a7a4e;
+      --fern:      #7aab62;
+      --mist:      #c8dab8;
+      --cream:     #f5f0e8;
+      --ivory:     #fdfaf4;
+      --gold:      #c9a84c;
+      --charcoal:  #1c1c1c;
+      --text-body: #3a3a3a;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'DM Sans', sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--ivory); color: var(--text-body); }
+    img  { display: block; width: 100%; }
+    a    { text-decoration: none; color: inherit; }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253,250,244,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 1rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--forest);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo svg { width: 24px; height: 24px; }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--sage);
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+
+    .nav-back:hover { color: var(--forest); }
+
+    /* ── HERO PRO ── */
+    .pro-hero {
+      background: var(--forest);
+      padding: 6rem 3rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pro-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(122,171,98,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .pro-hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fern);
+      margin-bottom: 1.2rem;
+    }
+
+    .pro-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--ivory);
+      line-height: 1.15;
+      margin-bottom: 1.4rem;
+    }
+
+    .pro-hero-title em {
+      font-style: italic;
+      color: var(--mist);
+    }
+
+    .pro-hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .pro-hero-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(122,171,98,0.3);
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .pro-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--fern);
+      flex-shrink: 0;
+    }
+
+    /* ── FORM SECTION ── */
+    .pro-form-section {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 5rem 2rem 7rem;
+    }
+
+    .pro-form-intro {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .pro-form-intro h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--forest);
+      margin-bottom: 0.8rem;
+    }
+
+    .pro-form-intro h2 em { font-style: italic; color: var(--sage); }
+
+    .pro-form-intro p {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* ── FORM LAYOUT ── */
+    .commande-form {
+      background: white;
+      border-radius: 18px;
+      padding: 3.5rem;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .form-col-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--forest);
+      margin-bottom: 1.4rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--mist);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--forest);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.8rem 1rem;
+      border: 1.5px solid var(--mist);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-body);
+      background: var(--ivory);
+      transition: border-color 0.3s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--fern); }
+
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    /* ── PRODUCTS LIST ── */
+    .commande-products-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .commande-product-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .commande-product-row:hover { background: var(--cream); }
+
+    .commande-product-row label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--text-body);
+      cursor: pointer;
+      flex: 1;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .commande-product-row input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: var(--fern);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .commande-product-row input[type="number"] {
+      width: 65px;
+      padding: 0.35rem 0.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      margin-bottom: 0;
+    }
+
+    /* ── SUBMIT ── */
+    .commande-submit {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--mist);
+    }
+
+    .commande-submit button {
+      padding: 1.05rem 3rem;
+      background: var(--fern);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .commande-submit button:hover {
+      background: var(--moss);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(42,74,42,0.3);
+    }
+
+    .commande-submit .note {
+      font-size: 0.78rem;
+      color: #aaa;
+      font-weight: 300;
+    }
+
+    .commande-message {
+      width: 100%;
+      max-width: 600px;
+      font-size: 0.9rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: 8px;
+      display: none;
+      text-align: center;
+    }
+
+    .commande-message.success {
+      display: block;
+      background: rgba(122,171,98,0.1);
+      color: var(--moss);
+      border: 1px solid var(--fern);
+    }
+
+    .commande-message.error {
+      display: block;
+      background: rgba(192,57,43,0.07);
+      color: #c0392b;
+      border: 1px solid #c0392b;
+    }
+
+    /* ── FOOTER ── */
+    .pro-footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+    }
+
+    .pro-footer a { color: var(--fern); }
+
+    /* ── INPUT AVEC ICÔNE ── */
+    .input-with-icon {
+      position: relative;
+    }
+    .input-with-icon .input-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      color: #25D366;
+      pointer-events: none;
+    }
+    .input-with-icon input {
+      padding-left: 2.6rem !important;
+    }
+
+    /* ── VARIETIES ── */
+    .varieties-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-bottom: 1rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .variety-search-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+    .variety-search-wrap svg {
+      position: absolute;
+      left: 0.85rem; top: 50%;
+      transform: translateY(-50%);
+      width: 16px; height: 16px;
+      color: #aaa;
+      pointer-events: none;
+    }
+    .variety-search-wrap input {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.4rem;
+      border: 1.5px solid var(--mist);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      background: var(--ivory);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .variety-search-wrap input:focus { border-color: var(--fern); }
+
+    .variety-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .variety-categories::-webkit-scrollbar { width: 4px; }
+    .variety-categories::-webkit-scrollbar-track { background: var(--mist); border-radius: 2px; }
+    .variety-categories::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 2px; }
+
+    .variety-cat-block { }
+
+    .variety-cat-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--mist);
+    }
+
+    .variety-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem;
+    }
+
+    .variety-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .variety-item:hover { background: var(--cream); }
+    .variety-item.checked { background: rgba(122,171,98,0.1); }
+    .variety-item.hidden  { display: none; }
+
+    .variety-item input[type="checkbox"] {
+      width: 15px; height: 15px;
+      accent-color: var(--fern);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .variety-item-name {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--text-body);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .variety-item-desc {
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: #aaa;
+      font-style: italic;
+    }
+
+    .variety-item-qty {
+      width: 52px;
+      padding: 0.25rem 0.4rem;
+      font-size: 0.78rem;
+      text-align: center;
+      border: 1px solid var(--mist);
+      border-radius: 5px;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+      display: none;
+    }
+    .variety-item.checked .variety-item-qty { display: block; }
+    .variety-item-qty:focus { border-color: var(--fern); }
+
+    .variety-selected-count {
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--sage);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CONTACT STRIP ── */
+    .pro-contact-strip {
+      background: var(--cream);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .pro-contact-strip-inner { max-width: 800px; margin: 0 auto; }
+    .pro-contact-strip-label {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--forest);
+      margin-bottom: 1.5rem;
+    }
+    .pro-contact-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .pro-contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1.4rem;
+      border: 1.5px solid var(--mist);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--forest);
+      background: white;
+      transition: border-color 0.3s, background 0.3s, color 0.3s;
+    }
+    .pro-contact-link svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .pro-contact-link:hover { border-color: var(--fern); background: var(--fern); color: white; }
+    .pro-contact-link.whatsapp svg { color: #25D366; }
+    .pro-contact-link.whatsapp:hover svg { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav                { padding: 1rem 1.5rem; }
+      .pro-hero          { padding: 4rem 1.5rem 3rem; }
+      .pro-form-section  { padding: 3rem 1.5rem 5rem; }
+      .commande-form     { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+      .variety-grid      { grid-template-columns: 1fr; }
+      .pro-contact-links { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 26C14 26 4 18.5 4 11C4 6.58 8.03 3 14 3C19.97 3 24 6.58 24 11C24 18.5 14 26 14 26Z" fill="currentColor" opacity="0.2"/>
+        <path d="M14 3V20M14 12C14 12 10 9 7 9M14 16C14 16 18 13 21 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Pousses Vivantes
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Retour au site
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pro-hero">
+    <p class="pro-hero-eyebrow">Espace professionnel</p>
+    <h1 class="pro-hero-title">Passer une <em>Commande</em></h1>
+    <p class="pro-hero-sub">Réservé aux professionnels de la restauration. Remplissez le formulaire — nous vous confirmons sous 24h.</p>
+    <div class="pro-hero-badges">
+      <span class="pro-badge"><span class="pro-badge-dot"></span>Récolte le matin de la livraison</span>
+      <span class="pro-badge"><span class="pro-badge-dot"></span>Casablanca, Rabat, Fès, Meknès &amp; plus</span>
+      <span class="pro-badge"><span class="pro-badge-dot"></span>Commande min. 500 MAD</span>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE -->
+  <section class="pro-form-section">
+    <div class="pro-form-intro">
+      <h2>Votre <em>commande</em></h2>
+      <p>Sélectionnez vos variétés, indiquez vos quantités et la date souhaitée.<br>Notre équipe revient vers vous rapidement pour confirmer.</p>
+    </div>
+
+    <form class="commande-form" id="commandeForm" onsubmit="handleCommande(event)">
+
+      <!-- ── COLONNE GAUCHE : infos restaurant ── -->
+      <div>
+        <div class="form-col-title">Informations restaurant</div>
+
+        <div class="form-group">
+          <label for="cmd-restaurant">Nom du restaurant *</label>
+          <input type="text" id="cmd-restaurant" name="restaurant" placeholder="Le Riad Gastronomique" required />
+        </div>
+        <div class="form-group">
+          <label for="cmd-contact">Nom du contact *</label>
+          <input type="text" id="cmd-contact" name="contact" placeholder="Chef Karim Benali" required />
+        </div>
+        <div class="form-group">
+          <label for="cmd-email">Email professionnel *</label>
+          <input type="email" id="cmd-email" name="email" placeholder="chef@restaurant.ma" required />
+        </div>
+        <div class="form-group">
+          <label for="cmd-tel">Téléphone *</label>
+          <input type="tel" id="cmd-tel" name="telephone" placeholder="+212 6 XX XX XX XX" required />
+        </div>
+        <div class="form-group">
+          <label for="cmd-whatsapp">WhatsApp</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <input type="tel" id="cmd-whatsapp" name="whatsapp" placeholder="+212 6 XX XX XX XX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cmd-ville">Ville de livraison *</label>
+          <select id="cmd-ville" name="ville" required>
+            <option value="">Sélectionnez une ville</option>
+            <option value="Casablanca">Casablanca</option>
+            <option value="Rabat">Rabat</option>
+            <option value="Fès">Fès</option>
+            <option value="Meknès">Meknès</option>
+            <option value="Azrou">Azrou</option>
+            <option value="Ifrane">Ifrane</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cmd-frequence">Fréquence de livraison</label>
+          <select id="cmd-frequence" name="frequence">
+            <option value="ponctuelle">Ponctuelle</option>
+            <option value="hebdomadaire">Hebdomadaire</option>
+            <option value="bimensuelle">Bi-mensuelle</option>
+            <option value="mensuelle">Mensuelle</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cmd-date">Date de livraison souhaitée</label>
+          <input type="date" id="cmd-date" name="dateLivraison" />
+        </div>
+        <div class="form-group">
+          <label for="cmd-message">Remarques / besoins particuliers</label>
+          <textarea id="cmd-message" name="message" placeholder="Volumes importants, conditions de livraison, allergènes à éviter..."></textarea>
+        </div>
+      </div>
+
+      <!-- ── COLONNE DROITE : 40 variétés ── -->
+      <div>
+        <div class="form-col-title">Variétés souhaitées *</div>
+        <p class="varieties-hint">Sélectionnez une ou plusieurs variétés. Indiquez la quantité désirée pour chaque sélection.</p>
+
+        <div class="variety-search-wrap">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M15 15l-3-3" stroke-linecap="round"/></svg>
+          <input type="text" id="varietySearch" placeholder="Rechercher une variété…" oninput="filterVarieties(this.value)" />
+        </div>
+
+        <div class="variety-categories" id="varietyCategories">
+          <!-- Injecté par JS -->
+        </div>
+
+        <div class="variety-selected-count" id="varietyCount">0 variété(s) sélectionnée(s)</div>
+      </div>
+
+      <div class="commande-submit">
+        <button type="submit">Envoyer la commande →</button>
+        <p class="note">Réponse sous 24h · Livraison frigorifiée · Minimum 500 MAD</p>
+        <div class="commande-message" id="commandeMsg"></div>
+      </div>
+    </form>
+  </section>
+
+  <!-- CONTACT RAPIDE -->
+  <section class="pro-contact-strip">
+    <div class="pro-contact-strip-inner">
+      <p class="pro-contact-strip-label">Une question avant de commander ?</p>
+      <div class="pro-contact-links">
+        <a href="mailto:pro@poussesvivantes.ma" class="pro-contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          pro@poussesvivantes.ma
+        </a>
+        <a href="tel:+212600000000" class="pro-contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +212 6 00 00 00 00
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" class="pro-contact-link whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pro-footer">
+    © 2024 Pousses Vivantes · Casablanca, Maroc · <a href="index.html">Retour au site</a>
+  </footer>
+
+  <script>
+    // ── 40 VARIÉTÉS organisées par catégorie ──────────────
+    const VARIETIES = [
+      {
+        cat: 'Légumes à feuilles',
+        items: [
+          { id:'v1',  name:'Tournesol',         desc:'Noisette, croquant',            unit:'barquette 100g' },
+          { id:'v2',  name:'Petit Pois',         desc:'Sucré, délicat',               unit:'barquette 120g' },
+          { id:'v3',  name:'Épinards',           desc:'Doux, terreux',                unit:'barquette 80g'  },
+          { id:'v4',  name:'Roquette',           desc:'Poivré, piquant',              unit:'barquette 60g'  },
+          { id:'v5',  name:'Mizuna',             desc:'Moutardé, fin',                unit:'barquette 70g'  },
+          { id:'v6',  name:'Amarante Rouge',     desc:'Doux, légèrement terreux',     unit:'barquette 60g'  },
+          { id:'v7',  name:'Pak Choï',           desc:'Délicat, légèrement sucré',    unit:'barquette 80g'  },
+          { id:'v8',  name:'Kale',               desc:'Légèrement amer, robuste',     unit:'barquette 70g'  },
+          { id:'v9',  name:'Poireau',            desc:'Oignon doux',                  unit:'barquette 80g'  },
+          { id:'v10', name:'Oseille',            desc:'Acidulé, citronné',            unit:'barquette 60g'  },
+        ]
+      },
+      {
+        cat: 'Crucifères',
+        items: [
+          { id:'v11', name:'Radis Daikon',       desc:'Piquant, poivré',              unit:'barquette 80g'  },
+          { id:'v12', name:'Radis Cherry Belle', desc:'Piquant léger',                unit:'barquette 80g'  },
+          { id:'v13', name:'Radis Sango',        desc:'Piquant, très coloré',         unit:'barquette 80g'  },
+          { id:'v14', name:'Moutarde Brune',     desc:'Chaud, épicé',                 unit:'barquette 80g'  },
+          { id:'v15', name:'Moutarde Rouge',     desc:'Épicé, fruité',                unit:'barquette 80g'  },
+          { id:'v16', name:'Chou Rouge',         desc:'Délicat, légèrement sucré',    unit:'barquette 90g'  },
+          { id:'v17', name:'Brocoli',            desc:'Légèrement amer, végétal',     unit:'barquette 70g'  },
+          { id:'v18', name:'Chou-fleur',         desc:'Doux, crémeux',                unit:'barquette 80g'  },
+        ]
+      },
+      {
+        cat: 'Aromatiques',
+        items: [
+          { id:'v19', name:'Basilic Genovese',   desc:'Anisé, floral',                unit:'barquette 60g'  },
+          { id:'v20', name:'Basilic Citron',     desc:'Citronné, frais',              unit:'barquette 60g'  },
+          { id:'v21', name:'Coriandre',          desc:'Intense, citronné',            unit:'barquette 60g'  },
+          { id:'v22', name:'Aneth',              desc:'Anisé, frais',                 unit:'barquette 60g'  },
+          { id:'v23', name:'Persil',             desc:'Frais, herbacé',               unit:'barquette 60g'  },
+          { id:'v24', name:'Fenouil',            desc:'Anisé, sucré',                 unit:'barquette 60g'  },
+          { id:'v25', name:'Céleri',             desc:'Aromatique, frais',            unit:'barquette 60g'  },
+          { id:'v26', name:'Cerfeuil',           desc:'Anisé, délicat',               unit:'barquette 60g'  },
+        ]
+      },
+      {
+        cat: 'Légumineuses',
+        items: [
+          { id:'v27', name:'Lentille Verte',     desc:'Terreux, noiseté',             unit:'barquette 100g' },
+          { id:'v28', name:'Pois Chiche',        desc:'Noiseté, dense',               unit:'barquette 100g' },
+          { id:'v29', name:'Fenugrec',           desc:'Légèrement amer, épicé',       unit:'barquette 80g'  },
+          { id:'v30', name:'Trèfle Rouge',       desc:'Doux, légèrement sucré',       unit:'barquette 80g'  },
+          { id:'v31', name:'Alfalfa (Luzerne)',  desc:'Léger, neutre, croquant',      unit:'barquette 70g'  },
+          { id:'v32', name:'Haricot Mungo',      desc:'Doux, croquant',               unit:'barquette 90g'  },
+        ]
+      },
+      {
+        cat: 'Céréales & Graines',
+        items: [
+          { id:'v33', name:'Sarrasin',           desc:'Noisette, légèrement amer',    unit:'barquette 100g' },
+          { id:'v34', name:'Blé',                desc:'Sucré, terreux',               unit:'barquette 100g' },
+          { id:'v35', name:'Quinoa',             desc:'Léger, croustillant',          unit:'barquette 80g'  },
+          { id:'v36', name:'Avoine',             desc:'Doux, crémeux',                unit:'barquette 100g' },
+          { id:'v37', name:'Orge',               desc:'Doux, légèrement sucré',       unit:'barquette 100g' },
+        ]
+      },
+      {
+        cat: 'Spécialités & Rares',
+        items: [
+          { id:'v38', name:'Betterave Rouge',    desc:'Terreux, sucré, très coloré',  unit:'barquette 90g'  },
+          { id:'v39', name:'Capucine',           desc:'Poivré, piquant, floral',      unit:'barquette 60g'  },
+          { id:'v40', name:'Shiso Vert',         desc:'Anisé, menthé, floral',        unit:'barquette 60g'  },
+        ]
+      }
+    ];
+
+    let selectedVarieties = {};
+
+    function buildVarieties() {
+      const container = document.getElementById('varietyCategories');
+      container.innerHTML = VARIETIES.map(cat => `
+        <div class="variety-cat-block" data-cat="${cat.cat}">
+          <div class="variety-cat-label">${cat.cat}</div>
+          <div class="variety-grid">
+            ${cat.items.map(v => `
+              <label class="variety-item" data-id="${v.id}" data-name="${v.name.toLowerCase()}">
+                <input type="checkbox" name="variety_${v.id}" value="${v.id}"
+                  onchange="toggleVariety('${v.id}', this)" />
+                <span class="variety-item-name">
+                  ${v.name}
+                  <span class="variety-item-desc">${v.desc}</span>
+                </span>
+                <input type="number" class="variety-item-qty" id="qty_${v.id}"
+                  value="1" min="1" max="999" placeholder="qté"
+                  onclick="event.stopPropagation()"
+                  title="Quantité en barquettes" />
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleVariety(id, cb) {
+      const item = cb.closest('.variety-item');
+      item.classList.toggle('checked', cb.checked);
+      if (cb.checked) {
+        selectedVarieties[id] = 1;
+      } else {
+        delete selectedVarieties[id];
+      }
+      updateCount();
+    }
+
+    function updateCount() {
+      const n = Object.keys(selectedVarieties).length;
+      document.getElementById('varietyCount').textContent =
+        n === 0 ? '0 variété sélectionnée' :
+        n === 1 ? '1 variété sélectionnée' :
+        `${n} variétés sélectionnées`;
+    }
+
+    function filterVarieties(q) {
+      const term = q.trim().toLowerCase();
+      document.querySelectorAll('.variety-item').forEach(item => {
+        const name = item.dataset.name || '';
+        item.classList.toggle('hidden', term !== '' && !name.includes(term));
+      });
+      document.querySelectorAll('.variety-cat-block').forEach(block => {
+        const visible = block.querySelectorAll('.variety-item:not(.hidden)').length > 0;
+        block.style.display = visible ? '' : 'none';
+      });
+    }
+
+    // Set min date to tomorrow
+    (function() {
+      const d = document.getElementById('cmd-date');
+      if (!d) return;
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      d.min = tomorrow.toISOString().split('T')[0];
+    })();
+
+    buildVarieties();
+
+    // ── SUBMIT ───────────────────────────────────────────
+    async function handleCommande(e) {
+      e.preventDefault();
+      const form = e.target;
+      const msg  = document.getElementById('commandeMsg');
+      const btn  = form.querySelector('button[type="submit"]');
+
+      // Collect selected varieties + quantities
+      const produits = [];
+      document.querySelectorAll('.variety-item.checked').forEach(item => {
+        const id  = item.dataset.id;
+        const qty = parseInt(item.querySelector('.variety-item-qty')?.value || 1);
+        const name = item.querySelector('.variety-item-name')?.textContent || id;
+        produits.push({ id, name, quantite: qty });
+      });
+
+      if (produits.length === 0) {
+        msg.className   = 'commande-message error';
+        msg.textContent = '✗ Veuillez sélectionner au moins une variété.';
+        return;
+      }
+
+      const body = {
+        restaurant:    form.restaurant.value,
+        contact:       form.contact.value,
+        email:         form.email.value,
+        telephone:     form.telephone?.value || '',
+        whatsapp:      form.whatsapp?.value || '',
+        ville:         form.ville.value,
+        produits,
+        dateLivraison: form.dateLivraison?.value || '',
+        frequence:     form.frequence?.value || 'ponctuelle',
+        message:       form.message?.value || ''
+      };
+
+      btn.disabled    = true;
+      btn.textContent = 'Envoi en cours…';
+      msg.className   = 'commande-message';
+      msg.style.display = 'none';
+
+      try {
+        const res  = await fetch('/api/orders', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          msg.className   = 'commande-message success';
+          msg.textContent = '✓ Votre commande a été envoyée ! Nous vous confirmons sous 24h.';
+          form.reset();
+          document.querySelectorAll('.variety-item').forEach(i => i.classList.remove('checked'));
+          selectedVarieties = {};
+          updateCount();
+        } else {
+          const errs = data.errors ? data.errors.join(' ') : (data.message || 'Erreur inconnue.');
+          msg.className   = 'commande-message error';
+          msg.textContent = '✗ ' + errs;
+        }
+      } catch {
+        msg.className   = 'commande-message error';
+        msg.textContent = '✗ Impossible de joindre le serveur. Contactez-nous directement par email ou WhatsApp.';
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Envoyer la commande →';
+      }
+    }
+  </script>
+</body>
+</html>

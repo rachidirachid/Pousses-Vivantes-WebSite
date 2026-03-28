@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paiement — Pousses Vivantes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --forest: #1a2e1a; --moss: #2d4a2d; --sage: #5a7a4e;
+      --fern: #7aab62; --mist: #c8dab8; --cream: #f5f0e8;
+      --ivory: #fdfaf4; --gold: #c9a84c; --charcoal: #1c1c1c;
+      --text-body: #3a3a3a;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--ivory); color: var(--text-body); min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(253,250,244,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 1rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; color: var(--forest); letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--sage); transition: color 0.3s; }
+    .nav-back:hover { color: var(--forest); }
+
+    /* LAYOUT */
+    .pay-wrap {
+      max-width: 960px; margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .pay-wrap { grid-template-columns: 1fr; padding: 2rem 1.2rem 4rem; }
+      .pay-summary { order: -1; }
+      nav { padding: 1rem 1.5rem; }
+    }
+
+    /* SECTION TITRES */
+    .section-eyebrow { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.4rem; }
+    .section-heading { font-family: var(--font-display); font-size: 1.7rem; font-weight: 300; color: var(--forest); margin-bottom: 1.5rem; }
+
+    /* RÉSUMÉ COMMANDE */
+    .pay-summary {
+      background: white; border-radius: 16px;
+      border: 1px solid var(--mist);
+      padding: 1.5rem; position: sticky; top: 90px;
+    }
+    .summary-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--forest); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--mist); }
+    .summary-items { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.2rem; }
+    .summary-item { display: flex; align-items: center; gap: 0.75rem; }
+    .summary-item-img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: var(--cream); flex-shrink: 0; }
+    .summary-item-placeholder { width: 44px; height: 44px; border-radius: 8px; background: var(--cream); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .summary-item-info { flex: 1; min-width: 0; }
+    .summary-item-name { font-size: 0.83rem; font-weight: 500; color: var(--forest); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .summary-item-qty { font-size: 0.72rem; color: var(--sage); margin-top: 1px; }
+    .summary-item-price { font-size: 0.82rem; font-weight: 500; color: var(--fern); flex-shrink: 0; }
+    .summary-divider { border: none; border-top: 1px solid var(--mist); margin: 1rem 0; }
+    .summary-total { display: flex; justify-content: space-between; align-items: center; }
+    .summary-total span { font-size: 0.85rem; color: var(--sage); }
+    .summary-total strong { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--forest); }
+    .summary-empty { text-align: center; padding: 2rem 0; color: var(--sage); font-size: 0.88rem; }
+    .summary-empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .summary-back-link { display: block; text-align: center; margin-top: 1rem; font-size: 0.78rem; color: var(--fern); }
+    .summary-back-link:hover { text-decoration: underline; }
+
+    /* FORMULAIRE */
+    .pay-form { display: flex; flex-direction: column; gap: 2rem; }
+
+    .form-card { background: white; border-radius: 16px; border: 1px solid var(--mist); padding: 1.8rem; }
+    .form-card-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--forest); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .form-card-title svg { color: var(--fern); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--sage); }
+    input, select, textarea {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--mist); border-radius: 8px;
+      background: var(--ivory); color: var(--text-body);
+      font-family: var(--font-body); font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--fern); box-shadow: 0 0 0 3px rgba(122,171,98,0.12); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* OPTIONS PAIEMENT */
+    .payment-options { display: flex; flex-direction: column; gap: 0.8rem; }
+    .pay-option {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 1.1rem;
+      border: 2px solid var(--mist); border-radius: 12px; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .pay-option:hover:not(.disabled) { border-color: var(--fern); background: rgba(122,171,98,0.04); }
+    .pay-option.selected { border-color: var(--fern); background: rgba(122,171,98,0.06); }
+    .pay-option.disabled { opacity: 0.55; cursor: not-allowed; }
+    .pay-option input[type="radio"] { accent-color: var(--fern); width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0; }
+    .pay-option-body { flex: 1; }
+    .pay-option-name { font-size: 0.9rem; font-weight: 500; color: var(--forest); display: flex; align-items: center; gap: 0.5rem; }
+    .pay-option-desc { font-size: 0.78rem; color: var(--sage); margin-top: 2px; }
+    .pay-badge-sub {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: var(--gold); color: white;
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em;
+      padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase;
+    }
+    .pay-option-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--cream); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* BOUTON COMMANDER */
+    .btn-pay {
+      width: 100%; padding: 1rem;
+      background: var(--fern); color: white;
+      border: none; border-radius: 50px; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .btn-pay:hover { background: var(--moss); transform: translateY(-1px); }
+    .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .pay-note { font-size: 0.72rem; color: var(--sage); text-align: center; margin-top: 0.5rem; }
+
+    /* CONFIRMATION */
+    .confirmation {
+      display: none;
+      flex-direction: column; align-items: center;
+      text-align: center; gap: 1.2rem;
+      padding: 3rem 2rem;
+      background: white; border-radius: 16px; border: 1px solid var(--mist);
+    }
+    .confirmation.show { display: flex; }
+    .conf-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(122,171,98,0.12); display: flex; align-items: center; justify-content: center; }
+    .conf-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; color: var(--forest); }
+    .conf-text { font-size: 0.9rem; color: var(--sage); max-width: 380px; line-height: 1.6; }
+    .conf-ref { font-size: 0.78rem; color: var(--sage); background: var(--cream); padding: 0.4rem 1rem; border-radius: 6px; }
+    .conf-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+    .conf-btn-home { padding: 0.75rem 1.5rem; background: var(--forest); color: white; border-radius: 50px; font-size: 0.82rem; font-weight: 500; transition: background 0.3s; }
+    .conf-btn-home:hover { background: var(--fern); }
+
+    /* FOOTER */
+    .page-footer { text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--sage); border-top: 1px solid var(--mist); }
+    .page-footer a { color: var(--fern); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 4V20M14 12C14 12 10 9 7 9M14 16C14 16 18 13 21 12" stroke="#1a2e1a" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Pousses Vivantes
+    </a>
+    <a href="produits.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Retour au catalogue
+    </a>
+  </nav>
+
+  <div class="pay-wrap">
+
+    <!-- FORMULAIRE -->
+    <div class="pay-form" id="payForm">
+
+      <div>
+        <p class="section-eyebrow">Étape finale</p>
+        <h1 class="section-heading">Votre commande</h1>
+      </div>
+
+      <!-- LIVRAISON -->
+      <div class="form-card">
+        <div class="form-card-title">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.24 2 4 4.24 4 7c0 4.5 5 9 5 9s5-4.5 5-9c0-2.76-2.24-5-5-5Zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="currentColor"/></svg>
+          Informations de livraison
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" placeholder="Ahmed" required />
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" placeholder="Benali" required />
+          </div>
+          <div class="form-group">
+            <label for="telephone">Téléphone *</label>
+            <input type="tel" id="telephone" placeholder="+212 6XX XXX XXX" required />
+          </div>
+          <div class="form-group">
+            <label for="ville">Ville *</label>
+            <select id="ville" required>
+              <option value="">Sélectionner…</option>
+              <option>Casablanca</option>
+              <option>Rabat</option>
+              <option>Fès</option>
+              <option>Meknès</option>
+              <option>Azrou</option>
+              <option>Ifrane</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="adresse">Adresse *</label>
+            <input type="text" id="adresse" placeholder="Rue, quartier, immeuble…" required />
+          </div>
+          <div class="form-group full">
+            <label for="note">Note (optionnel)</label>
+            <textarea id="note" placeholder="Instructions particulières, code d'accès…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAIEMENT -->
+      <div class="form-card">
+        <div class="form-card-title">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2 7h14" stroke="currentColor" stroke-width="1.4"/><path d="M5 11h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Mode de paiement
+        </div>
+        <div class="payment-options">
+
+          <label class="pay-option selected" id="optCard">
+            <input type="radio" name="payment" value="card" checked onchange="selectPayment(this)" />
+            <div class="pay-option-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2" stroke="#5a7a4e" stroke-width="1.4"/><path d="M2 8.5h16" stroke="#5a7a4e" stroke-width="1.4"/></svg>
+            </div>
+            <div class="pay-option-body">
+              <div class="pay-option-name">Paiement en ligne</div>
+              <div class="pay-option-desc">Carte bancaire · CMI / Visa / Mastercard</div>
+            </div>
+          </label>
+
+          <label class="pay-option disabled" id="optCOD" title="Réservé aux abonnés">
+            <input type="radio" name="payment" value="cod" disabled />
+            <div class="pay-option-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#c9a84c" stroke-width="1.4"/><path d="M10 7v3l2 1.5" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/></svg>
+            </div>
+            <div class="pay-option-body">
+              <div class="pay-option-name">
+                Paiement à la livraison
+                <span class="pay-badge-sub">
+                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M5 1l1 3h3l-2.5 1.8 1 3L5 7.2 2.5 8.8l1-3L1 4h3Z" fill="white"/></svg>
+                  Abonnés
+                </span>
+              </div>
+              <div class="pay-option-desc">Disponible uniquement pour les abonnés actifs — <a href="index.html#abonnements" style="color:var(--gold)">Souscrire un abonnement</a></div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <!-- BOUTON -->
+      <div>
+        <button class="btn-pay" id="btnPay" onclick="submitOrder()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Confirmer la commande
+        </button>
+        <p class="pay-note">🔒 Paiement sécurisé · Livraison sous 24h</p>
+      </div>
+
+    </div>
+
+    <!-- RÉSUMÉ -->
+    <div class="pay-summary">
+      <div class="summary-title">Récapitulatif</div>
+      <div class="summary-items" id="summaryItems"></div>
+      <div class="summary-empty" id="summaryEmpty" style="display:none">
+        <div class="summary-empty-icon">🌱</div>
+        <p>Panier vide</p>
+        <a href="produits.html" class="summary-back-link">← Voir le catalogue</a>
+      </div>
+      <hr class="summary-divider" />
+      <div class="summary-total">
+        <span>Total</span>
+        <strong id="summaryTotal">0 MAD</strong>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONFIRMATION (affiché après soumission) -->
+  <div style="max-width:960px;margin:0 auto;padding:0 2rem 5rem">
+    <div class="confirmation" id="confirmation">
+      <div class="conf-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 14l6 6 12-12" stroke="#7aab62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="conf-title">Commande confirmée !</div>
+      <p class="conf-text">Merci pour votre commande. Vous recevrez une confirmation par SMS. Votre livraison est prévue sous 24h.</p>
+      <div class="conf-ref" id="confRef">Réf : #PV-000000</div>
+      <div class="conf-btns">
+        <a href="index.html" class="conf-btn-home">Retour à l'accueil</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    © 2024 Pousses Vivantes · Casablanca, Maroc ·
+    <a href="index.html">Accueil</a> · <a href="produits.html">Catalogue</a>
+  </footer>
+
+  <script>
+    const CART_KEY = 'pv_cart';
+    function loadCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e) { return []; } }
+
+    // Afficher le résumé
+    function renderSummary() {
+      const cart = loadCart();
+      const itemsEl = document.getElementById('summaryItems');
+      const emptyEl = document.getElementById('summaryEmpty');
+      const totalEl = document.getElementById('summaryTotal');
+
+      if (cart.length === 0) {
+        itemsEl.innerHTML = '';
+        emptyEl.style.display = 'block';
+        totalEl.textContent = '0 MAD';
+        document.getElementById('btnPay').disabled = true;
+        return;
+      }
+      emptyEl.style.display = 'none';
+      totalEl.textContent = cart.reduce((s, i) => s + i.qty * i.price, 0) + ' MAD';
+      itemsEl.innerHTML = cart.map(item => `
+        <div class="summary-item">
+          ${item.img ? `<img class="summary-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">` : `<div class="summary-item-placeholder">🌱</div>`}
+          <div class="summary-item-info">
+            <div class="summary-item-name">${item.name}</div>
+            <div class="summary-item-qty">× ${item.qty} — ${item.unit}</div>
+          </div>
+          <div class="summary-item-price">${item.qty * item.price} MAD</div>
+        </div>`).join('');
+    }
+
+    function selectPayment(radio) {
+      document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('selected'));
+      radio.closest('.pay-option').classList.add('selected');
+    }
+
+    function submitOrder() {
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom    = document.getElementById('nom').value.trim();
+      const tel    = document.getElementById('telephone').value.trim();
+      const ville  = document.getElementById('ville').value;
+      const adr    = document.getElementById('adresse').value.trim();
+
+      if (!prenom || !nom || !tel || !ville || !adr) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      const cart = loadCart();
+      if (cart.length === 0) { alert('Votre panier est vide.'); return; }
+
+      // Simuler une confirmation
+      const ref = 'PV-' + Date.now().toString().slice(-6);
+      document.getElementById('confRef').textContent = 'Réf : #' + ref;
+      localStorage.removeItem(CART_KEY);
+
+      document.getElementById('payForm').style.display = 'none';
+      document.querySelector('.pay-summary').style.display = 'none';
+      document.getElementById('confirmation').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderSummary();
+  </script>
+</body>
+</html>

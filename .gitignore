@@ -1,0 +1,24 @@
+# Dépendances Node.js
+node_modules/
+
+# Fichiers vidéo (trop lourds pour Git)
+*.mp4
+*.MP4
+*.mov
+*.MOV
+
+# Archives
+*.zip
+*.tar.gz
+
+# Fichiers temporaires
+.DS_Store
+*.log
+npm-debug.log*
+
+# Copies de travail
+index copy*.html
+
+# Fichiers de capture d'écran
+*.MP4
+ScreenRecording*
