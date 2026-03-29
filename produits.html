@@ -342,6 +342,11 @@
       border-top: 1px solid rgba(0,0,0,0.05);
     }
 
+    .card-price {
+      display: block;
+      font-size: 1rem; font-weight: 600;
+      color: var(--forest);
+    }
     .card-unit {
       font-size: 0.7rem; font-weight: 300; color: #bbb;
     }
@@ -1285,7 +1290,10 @@
                     ${p.usages.map(u => `<span class="card-pill">${u}</span>`).join('')}
                   </div>
                   <div class="card-footer">
-                    <span class="card-unit">${p.unit}</span>
+                    <div>
+                      <span class="card-price">${PRICE} MAD</span>
+                      <span class="card-unit">${p.unit}</span>
+                    </div>
                     <button class="card-cta" data-id="${p.id}" onclick="addToCart('${p.id}')">
                       <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1.5 1.5h1.8l1.4 6h5.5L12 4.5H4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="6.5" cy="11.5" r="1" fill="currentColor"/><circle cx="10" cy="11.5" r="1" fill="currentColor"/></svg>
                       Ajouter
