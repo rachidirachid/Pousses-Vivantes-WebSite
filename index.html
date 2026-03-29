@@ -2703,22 +2703,23 @@
       margin-bottom: 60px;
     }
     .team-carousel-wrap {
-      position: relative;
-      width: 100%;
-      height: 480px;
-      perspective: 2000px;
-      overflow: visible;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
     .team-track {
-      position: absolute;
-      width: 100%; height: 100%;
-      transform-style: preserve-3d;
+      display: flex;
+      gap: 28px;
+      width: max-content;
+      animation: teamScroll 36s linear infinite;
+    }
+    .team-track:hover { animation-play-state: paused; }
+    @keyframes teamScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
     .team-card {
-      position: absolute;
-      width: 300px; height: 400px;
-      left: 50%; top: 50%;
-      margin-left: -150px; margin-top: -200px;
+      flex: 0 0 320px;
       background: #fff;
       border-radius: 20px;
       overflow: hidden;
@@ -2726,7 +2727,8 @@
       transition: transform .35s var(--ease-out-expo), box-shadow .35s ease;
     }
     .team-card:hover {
-      box-shadow: 0 16px 48px rgba(26,46,26,.22);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(26,46,26,.14);
     }
     .team-card-photo {
       position: relative;
@@ -3420,9 +3422,10 @@
       </p>
     </div>
 
-    <div class="team-carousel-wrap" id="teamGallery" aria-label="Galerie équipe circulaire" role="region">
-      <div class="team-track" id="teamTrack">
-        <div class="team-card" data-index="0">
+    <div class="team-carousel-wrap">
+      <div class="team-track">
+        <!-- Set 1 -->
+        <div class="team-card">
           <div class="team-card-photo">
             <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=600&q=80" alt="Rachid — Fondateur" loading="lazy" />
             <div class="team-card-photo-overlay"></div>
@@ -3433,7 +3436,7 @@
             <p class="team-card-bio">Passionné d'agriculture urbaine depuis plus de 10 ans, Rachid a fondé Pousses Vivantes pour rendre l'alimentation vivante accessible à tous au Maroc.</p>
           </div>
         </div>
-        <div class="team-card" data-index="1">
+        <div class="team-card">
           <div class="team-card-photo">
             <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80" alt="Salma — Responsable qualité" loading="lazy" />
             <div class="team-card-photo-overlay"></div>
@@ -3444,7 +3447,7 @@
             <p class="team-card-bio">Ingénieure agronome de formation, Salma supervise chaque étape de la culture pour garantir des micro-pousses d'une fraîcheur irréprochable.</p>
           </div>
         </div>
-        <div class="team-card" data-index="2">
+        <div class="team-card">
           <div class="team-card-photo">
             <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=600&q=80" alt="Youssef — Chef partenaire" loading="lazy" />
             <div class="team-card-photo-overlay"></div>
@@ -3455,7 +3458,7 @@
             <p class="team-card-bio">Chef étoilé, Youssef collabore avec notre équipe pour développer des variétés adaptées aux grandes tables gastronomiques marocaines.</p>
           </div>
         </div>
-        <div class="team-card" data-index="3">
+        <div class="team-card">
           <div class="team-card-photo">
             <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Nadia — Livraison & logistique" loading="lazy" />
             <div class="team-card-photo-overlay"></div>
@@ -3466,7 +3469,7 @@
             <p class="team-card-bio">Nadia coordonne toutes les livraisons pour s'assurer que vos commandes arrivent dans les meilleures conditions, toujours vivantes.</p>
           </div>
         </div>
-        <div class="team-card" data-index="4">
+        <div class="team-card">
           <div class="team-card-photo">
             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" alt="Omar — Développement commercial" loading="lazy" />
             <div class="team-card-photo-overlay"></div>
@@ -3474,10 +3477,10 @@
           </div>
           <div class="team-card-body">
             <h3 class="team-card-name">Omar</h3>
-            <p class="team-card-bio">Fort de 8 ans d'expérience en développement commercial dans la restauration, Omar tisse les partenariats stratégiques avec les chefs et hôtels du Maroc.</p>
+            <p class="team-card-bio">Fort de 8 ans d'expérience dans la restauration, Omar tisse les partenariats stratégiques avec les chefs et hôtels du Maroc.</p>
           </div>
         </div>
-        <div class="team-card" data-index="5">
+        <div class="team-card">
           <div class="team-card-photo">
             <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80" alt="Hind — Nutrition & R&D" loading="lazy" />
             <div class="team-card-photo-overlay"></div>
@@ -3485,7 +3488,74 @@
           </div>
           <div class="team-card-body">
             <h3 class="team-card-name">Hind</h3>
-            <p class="team-card-bio">Diététicienne-nutritionniste, Hind pilote la recherche et développement de nouvelles variétés et conçoit nos guides nutritionnels pour les clients et partenaires.</p>
+            <p class="team-card-bio">Diététicienne-nutritionniste, Hind pilote la R&D de nouvelles variétés et conçoit nos guides nutritionnels pour clients et partenaires.</p>
+          </div>
+        </div>
+        <!-- Set 2 — duplicate pour boucle infinie -->
+        <div class="team-card">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=600&q=80" alt="Rachid — Fondateur" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Fondateur & Cultivateur</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Rachid</h3>
+            <p class="team-card-bio">Passionné d'agriculture urbaine depuis plus de 10 ans, Rachid a fondé Pousses Vivantes pour rendre l'alimentation vivante accessible à tous au Maroc.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80" alt="Salma — Responsable qualité" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Responsable Qualité</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Salma</h3>
+            <p class="team-card-bio">Ingénieure agronome de formation, Salma supervise chaque étape de la culture pour garantir des micro-pousses d'une fraîcheur irréprochable.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=600&q=80" alt="Youssef — Chef partenaire" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Chef Partenaire</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Youssef</h3>
+            <p class="team-card-bio">Chef étoilé, Youssef collabore avec notre équipe pour développer des variétés adaptées aux grandes tables gastronomiques marocaines.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Nadia — Livraison & logistique" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Logistique & Livraison</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Nadia</h3>
+            <p class="team-card-bio">Nadia coordonne toutes les livraisons pour s'assurer que vos commandes arrivent dans les meilleures conditions, toujours vivantes.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" alt="Omar — Développement commercial" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Développement Commercial</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Omar</h3>
+            <p class="team-card-bio">Fort de 8 ans d'expérience dans la restauration, Omar tisse les partenariats stratégiques avec les chefs et hôtels du Maroc.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80" alt="Hind — Nutrition & R&D" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Nutrition & R&D</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Hind</h3>
+            <p class="team-card-bio">Diététicienne-nutritionniste, Hind pilote la R&D de nouvelles variétés et conçoit nos guides nutritionnels pour clients et partenaires.</p>
           </div>
         </div>
       </div>
@@ -4434,66 +4504,6 @@
         localStorage.setItem('pv_cookie_consent', '1');
         banner.style.display = 'none';
       });
-    })();
-  </script>
-
-  <!-- ── CIRCULAR TEAM GALLERY ── -->
-  <script>
-    (function() {
-      var track    = document.getElementById('teamTrack');
-      var cards    = track ? Array.from(track.querySelectorAll('.team-card')) : [];
-      var n        = cards.length;
-      if (!n) return;
-
-      var rotation      = 0;
-      var isScrolling   = false;
-      var scrollTimeout = null;
-      var rafId         = null;
-      var AUTO_SPEED    = 0.02;
-      var RADIUS        = window.innerWidth < 600 ? 280 : 520;
-      var anglePerItem  = 360 / n;
-
-      // Position each card on the circle
-      cards.forEach(function(card, i) {
-        card.style.transform = 'rotateY(' + (i * anglePerItem) + 'deg) translateZ(' + RADIUS + 'px)';
-        card.style.transition = 'opacity 0.3s linear';
-      });
-
-      function updateFrame() {
-        // Rotate the whole track
-        track.style.transform = 'rotateY(' + rotation + 'deg)';
-
-        // Update per-card opacity (front = 1, back = 0.3)
-        cards.forEach(function(card, i) {
-          var itemAngle     = i * anglePerItem;
-          var rel           = (itemAngle + rotation % 360 + 360) % 360;
-          var norm          = Math.abs(rel > 180 ? 360 - rel : rel);
-          card.style.opacity = Math.max(0.3, 1 - norm / 180);
-        });
-      }
-
-      function autoRotate() {
-        if (!isScrolling) rotation += AUTO_SPEED;
-        updateFrame();
-        rafId = requestAnimationFrame(autoRotate);
-      }
-
-      window.addEventListener('scroll', function() {
-        isScrolling = true;
-        clearTimeout(scrollTimeout);
-        var scrollableH = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollableH > 0) rotation = (window.scrollY / scrollableH) * 360;
-        scrollTimeout = setTimeout(function() { isScrolling = false; }, 150);
-      }, { passive: true });
-
-      window.addEventListener('resize', function() {
-        RADIUS = window.innerWidth < 600 ? 280 : 520;
-        cards.forEach(function(card, i) {
-          card.style.transform = 'rotateY(' + (i * anglePerItem) + 'deg) translateZ(' + RADIUS + 'px)';
-        });
-      });
-
-      autoRotate();
     })();
   </script>
 
