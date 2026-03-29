@@ -2792,14 +2792,25 @@
       background: var(--cream);
     }
     .reviews-header { text-align: center; margin-bottom: 60px; }
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+    /* scrolling track */
+    .reviews-scroll-wrap {
+      overflow: hidden;
       margin-bottom: 64px;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
-    @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 580px) { .reviews-grid { grid-template-columns: 1fr; } }
+    .reviews-grid {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      animation: reviewsScroll 32s linear infinite;
+    }
+    .reviews-grid:hover { animation-play-state: paused; }
+    @keyframes reviewsScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .review-card { flex: 0 0 340px; }
     .review-card {
       background: #fff;
       border-radius: 16px;
@@ -3478,44 +3489,91 @@
       <h2 class="section-title reveal delay-1">Ce que disent nos <em>clients</em></h2>
     </div>
 
-    <div class="reviews-grid" id="reviewsGrid">
-
-      <div class="review-card reveal delay-1">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
-        <div class="review-author">
-          <div class="review-avatar">K</div>
-          <div>
-            <div class="review-author-name">Karim Benali</div>
-            <div class="review-author-city">Chef — Casablanca</div>
+    <div class="reviews-scroll-wrap">
+      <div class="reviews-grid" id="reviewsGrid">
+        <!-- Set 1 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
+          <div class="review-author">
+            <div class="review-avatar">K</div>
+            <div><div class="review-author-name">Karim Benali</div><div class="review-author-city">Chef — Casablanca</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante, la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
+          <div class="review-author">
+            <div class="review-avatar">L</div>
+            <div><div class="review-author-name">Leila Moussaoui</div><div class="review-author-city">Particulier — Rabat</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. Je suis fan du concept et j'attends avec impatience de nouvelles variétés."</p>
+          <div class="review-author">
+            <div class="review-avatar">A</div>
+            <div><div class="review-author-name">Amine Tazi</div><div class="review-author-city">Particulier — Marrakech</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Une qualité incomparable. Mes convives sont toujours impressionnés par la présentation et le goût. Je ne me vois plus cuisiner sans eux."</p>
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div><div class="review-author-name">Saïd Alaoui</div><div class="review-author-city">Chef à domicile — Fès</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"La démarche éco-responsable m'a convaincue dès le départ. Les produits sont à la hauteur de leurs valeurs. Bravo à toute l'équipe !"</p>
+          <div class="review-author">
+            <div class="review-avatar">N</div>
+            <div><div class="review-author-name">Nora Bennis</div><div class="review-author-city">Nutritionniste — Agadir</div></div>
+          </div>
+        </div>
+        <!-- Set 2 — duplicate pour boucle infinie -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
+          <div class="review-author">
+            <div class="review-avatar">K</div>
+            <div><div class="review-author-name">Karim Benali</div><div class="review-author-city">Chef — Casablanca</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante, la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
+          <div class="review-author">
+            <div class="review-avatar">L</div>
+            <div><div class="review-author-name">Leila Moussaoui</div><div class="review-author-city">Particulier — Rabat</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. Je suis fan du concept et j'attends avec impatience de nouvelles variétés."</p>
+          <div class="review-author">
+            <div class="review-avatar">A</div>
+            <div><div class="review-author-name">Amine Tazi</div><div class="review-author-city">Particulier — Marrakech</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Une qualité incomparable. Mes convives sont toujours impressionnés par la présentation et le goût. Je ne me vois plus cuisiner sans eux."</p>
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div><div class="review-author-name">Saïd Alaoui</div><div class="review-author-city">Chef à domicile — Fès</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"La démarche éco-responsable m'a convaincue dès le départ. Les produits sont à la hauteur de leurs valeurs. Bravo à toute l'équipe !"</p>
+          <div class="review-author">
+            <div class="review-avatar">N</div>
+            <div><div class="review-author-name">Nora Bennis</div><div class="review-author-city">Nutritionniste — Agadir</div></div>
           </div>
         </div>
       </div>
-
-      <div class="review-card reveal delay-2">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante, la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
-        <div class="review-author">
-          <div class="review-avatar">L</div>
-          <div>
-            <div class="review-author-name">Leila Moussaoui</div>
-            <div class="review-author-city">Particulier — Rabat</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="review-card reveal delay-3">
-        <div class="review-stars">★★★★☆</div>
-        <p class="review-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. Je suis fan du concept et j'attends avec impatience de nouvelles variétés."</p>
-        <div class="review-author">
-          <div class="review-avatar">A</div>
-          <div>
-            <div class="review-author-name">Amine Tazi</div>
-            <div class="review-author-city">Particulier — Marrakech</div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <!-- Formulaire avis -->
