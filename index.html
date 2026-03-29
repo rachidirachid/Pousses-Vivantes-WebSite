@@ -2816,53 +2816,70 @@
       background: var(--cream);
     }
     .reviews-header { text-align: center; margin-bottom: 60px; }
-    /* scrolling track */
-    .reviews-scroll-wrap {
+    /* 3-column vertical scroll */
+    .testimonials-columns-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      max-height: 740px;
       overflow: hidden;
       margin-bottom: 64px;
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
     }
-    .reviews-grid {
-      display: flex;
-      gap: 24px;
-      width: max-content;
-      animation: reviewsScroll 32s linear infinite;
+    .testimonials-col { flex: 0 0 300px; overflow: hidden; }
+    .testimonials-col:nth-child(2) { display: none; }
+    .testimonials-col:nth-child(3) { display: none; }
+    @media (min-width: 768px)  { .testimonials-col:nth-child(2) { display: block; } }
+    @media (min-width: 1100px) { .testimonials-col:nth-child(3) { display: block; } }
+    .testimonials-col-inner {
+      display: flex; flex-direction: column; gap: 20px;
     }
-    .reviews-grid:hover { animation-play-state: paused; }
-    @keyframes reviewsScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .testimonials-col-inner.col1 { animation: colScroll 15s linear infinite; }
+    .testimonials-col-inner.col2 { animation: colScroll 19s linear infinite; }
+    .testimonials-col-inner.col3 { animation: colScroll 17s linear infinite; }
+    @keyframes colScroll {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-50%); }
     }
-    .review-card { flex: 0 0 340px; }
-    .review-card {
+    .testimonial-item {
       background: #fff;
-      border-radius: 16px;
-      padding: 28px;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(26,46,26,.07);
+      border: 1px solid rgba(200,218,184,.4);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .ti-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
+    .ti-text {
+      font-size: .88rem; line-height: 1.7;
+      color: var(--text-body); font-style: italic;
+    }
+    .ti-author { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+    .ti-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      background: var(--mist);
+    }
+    .ti-name { font-weight: 600; font-size: .85rem; color: var(--forest); }
+    .ti-role { font-size: .75rem; color: var(--sage); }
+    /* kept for dynamic form reviews */
+    .review-card {
+      background: #fff; border-radius: 16px; padding: 28px;
       box-shadow: 0 2px 16px rgba(26,46,26,.06);
       display: flex; flex-direction: column; gap: 14px;
     }
     .review-stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; }
-    .review-text {
-      font-size: .92rem; line-height: 1.7;
-      color: var(--text-body);
-      font-style: italic;
-    }
-    .review-author {
-      display: flex; align-items: center; gap: 12px;
-      margin-top: auto;
-    }
+    .review-text { font-size: .92rem; line-height: 1.7; color: var(--text-body); font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
     .review-avatar {
       width: 40px; height: 40px; border-radius: 50%;
       background: var(--mist);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--font-display); font-size: 1.1rem;
-      color: var(--forest); font-weight: 600;
-      flex-shrink: 0;
+      color: var(--forest); font-weight: 600; flex-shrink: 0;
     }
-    .review-author-name {
-      font-weight: 600; font-size: .88rem; color: var(--forest);
-    }
+    .review-author-name { font-weight: 600; font-size: .88rem; color: var(--forest); }
     .review-author-city { font-size: .78rem; color: var(--sage); }
     /* form */
     .review-form-wrap {
@@ -3597,92 +3614,125 @@
       <h2 class="section-title reveal delay-1">Ce que disent nos <em>clients</em></h2>
     </div>
 
-    <div class="reviews-scroll-wrap">
-      <div class="reviews-grid" id="reviewsGrid">
-        <!-- Set 1 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
-          <div class="review-author">
-            <div class="review-avatar">K</div>
-            <div><div class="review-author-name">Karim Benali</div><div class="review-author-city">Chef — Casablanca</div></div>
+    <div class="testimonials-columns-wrap">
+
+      <!-- Colonne 1 — vitesse 15s -->
+      <div class="testimonials-col">
+        <div class="testimonials-col-inner col1">
+          <!-- set 1 -->
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Karim Benali" /><div><div class="ti-name">Karim Benali</div><div class="ti-role">Chef — Casablanca</div></div></div>
           </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante, la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
-          <div class="review-author">
-            <div class="review-avatar">L</div>
-            <div><div class="review-author-name">Leila Moussaoui</div><div class="review-author-city">Particulier — Rabat</div></div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante et la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Leila Moussaoui" /><div><div class="ti-name">Leila Moussaoui</div><div class="ti-role">Particulier — Rabat</div></div></div>
           </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★☆</div>
-          <p class="review-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. Je suis fan du concept et j'attends avec impatience de nouvelles variétés."</p>
-          <div class="review-author">
-            <div class="review-avatar">A</div>
-            <div><div class="review-author-name">Amine Tazi</div><div class="review-author-city">Particulier — Marrakech</div></div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★☆</div>
+            <p class="ti-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. J'attends avec impatience de nouvelles variétés."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/55.jpg" alt="Amine Tazi" /><div><div class="ti-name">Amine Tazi</div><div class="ti-role">Particulier — Marrakech</div></div></div>
           </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Une qualité incomparable. Mes convives sont toujours impressionnés par la présentation et le goût. Je ne me vois plus cuisiner sans eux."</p>
-          <div class="review-author">
-            <div class="review-avatar">S</div>
-            <div><div class="review-author-name">Saïd Alaoui</div><div class="review-author-city">Chef à domicile — Fès</div></div>
+          <!-- set 2 (duplicate) -->
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Karim Benali" /><div><div class="ti-name">Karim Benali</div><div class="ti-role">Chef — Casablanca</div></div></div>
           </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"La démarche éco-responsable m'a convaincue dès le départ. Les produits sont à la hauteur de leurs valeurs. Bravo à toute l'équipe !"</p>
-          <div class="review-author">
-            <div class="review-avatar">N</div>
-            <div><div class="review-author-name">Nora Bennis</div><div class="review-author-city">Nutritionniste — Agadir</div></div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante et la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Leila Moussaoui" /><div><div class="ti-name">Leila Moussaoui</div><div class="ti-role">Particulier — Rabat</div></div></div>
           </div>
-        </div>
-        <!-- Set 2 — duplicate pour boucle infinie -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
-          <div class="review-author">
-            <div class="review-avatar">K</div>
-            <div><div class="review-author-name">Karim Benali</div><div class="review-author-city">Chef — Casablanca</div></div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante, la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
-          <div class="review-author">
-            <div class="review-avatar">L</div>
-            <div><div class="review-author-name">Leila Moussaoui</div><div class="review-author-city">Particulier — Rabat</div></div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★☆</div>
-          <p class="review-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. Je suis fan du concept et j'attends avec impatience de nouvelles variétés."</p>
-          <div class="review-author">
-            <div class="review-avatar">A</div>
-            <div><div class="review-author-name">Amine Tazi</div><div class="review-author-city">Particulier — Marrakech</div></div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Une qualité incomparable. Mes convives sont toujours impressionnés par la présentation et le goût. Je ne me vois plus cuisiner sans eux."</p>
-          <div class="review-author">
-            <div class="review-avatar">S</div>
-            <div><div class="review-author-name">Saïd Alaoui</div><div class="review-author-city">Chef à domicile — Fès</div></div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"La démarche éco-responsable m'a convaincue dès le départ. Les produits sont à la hauteur de leurs valeurs. Bravo à toute l'équipe !"</p>
-          <div class="review-author">
-            <div class="review-avatar">N</div>
-            <div><div class="review-author-name">Nora Bennis</div><div class="review-author-city">Nutritionniste — Agadir</div></div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★☆</div>
+            <p class="ti-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. J'attends avec impatience de nouvelles variétés."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/55.jpg" alt="Amine Tazi" /><div><div class="ti-name">Amine Tazi</div><div class="ti-role">Particulier — Marrakech</div></div></div>
           </div>
         </div>
       </div>
+
+      <!-- Colonne 2 — vitesse 19s (masquée sur mobile) -->
+      <div class="testimonials-col">
+        <div class="testimonials-col-inner col2">
+          <!-- set 1 -->
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Une qualité incomparable. Mes convives sont toujours impressionnés par la présentation et le goût. Je ne me vois plus cuisiner sans elles."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/67.jpg" alt="Saïd Alaoui" /><div><div class="ti-name">Saïd Alaoui</div><div class="ti-role">Chef à domicile — Fès</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"La démarche éco-responsable m'a convaincue dès le départ. Les produits sont à la hauteur de leurs valeurs. Bravo à toute l'équipe !"</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/28.jpg" alt="Nora Bennis" /><div><div class="ti-name">Nora Bennis</div><div class="ti-role">Nutritionniste — Agadir</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Depuis que j'ai découvert les micro-pousses Pousses Vivantes, ma cuisine a changé. Fraîcheur, couleurs et saveurs au rendez-vous à chaque livraison."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/61.jpg" alt="Fatima Zahra" /><div><div class="ti-name">Fatima Zahra</div><div class="ti-role">Particulier — Tanger</div></div></div>
+          </div>
+          <!-- set 2 (duplicate) -->
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Une qualité incomparable. Mes convives sont toujours impressionnés par la présentation et le goût. Je ne me vois plus cuisiner sans elles."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/67.jpg" alt="Saïd Alaoui" /><div><div class="ti-name">Saïd Alaoui</div><div class="ti-role">Chef à domicile — Fès</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"La démarche éco-responsable m'a convaincue dès le départ. Les produits sont à la hauteur de leurs valeurs. Bravo à toute l'équipe !"</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/28.jpg" alt="Nora Bennis" /><div><div class="ti-name">Nora Bennis</div><div class="ti-role">Nutritionniste — Agadir</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Depuis que j'ai découvert les micro-pousses Pousses Vivantes, ma cuisine a changé. Fraîcheur, couleurs et saveurs au rendez-vous à chaque livraison."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/61.jpg" alt="Fatima Zahra" /><div><div class="ti-name">Fatima Zahra</div><div class="ti-role">Particulier — Tanger</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne 3 — vitesse 17s (masquée sur mobile et tablette) -->
+      <div class="testimonials-col">
+        <div class="testimonials-col-inner col3">
+          <!-- set 1 -->
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"J'intègre les micro-pousses dans tous mes menus de saison. Mes clients les réclament ! La régularité et la fraîcheur de chaque livraison sont remarquables."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/14.jpg" alt="Yassine El Mansouri" /><div><div class="ti-name">Yassine El Mansouri</div><div class="ti-role">Chef — Marrakech</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★☆</div>
+            <p class="ti-text">"En tant que diététicienne, je recommande ces micro-pousses à mes patients pour leur densité nutritive exceptionnelle. Un produit local de très haute qualité."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/72.jpg" alt="Souad Chraibi" /><div><div class="ti-name">Souad Chraibi</div><div class="ti-role">Diététicienne — Casablanca</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Nous avons intégré les micro-pousses Pousses Vivantes à notre carte. Nos clients adorent et nos chefs apprécient la constance de la qualité semaine après semaine."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/81.jpg" alt="Hassan Berrada" /><div><div class="ti-name">Hassan Berrada</div><div class="ti-role">Restaurateur — Rabat</div></div></div>
+          </div>
+          <!-- set 2 (duplicate) -->
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"J'intègre les micro-pousses dans tous mes menus de saison. Mes clients les réclament ! La régularité et la fraîcheur de chaque livraison sont remarquables."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/14.jpg" alt="Yassine El Mansouri" /><div><div class="ti-name">Yassine El Mansouri</div><div class="ti-role">Chef — Marrakech</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★☆</div>
+            <p class="ti-text">"En tant que diététicienne, je recommande ces micro-pousses à mes patients pour leur densité nutritive exceptionnelle. Un produit local de très haute qualité."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/women/72.jpg" alt="Souad Chraibi" /><div><div class="ti-name">Souad Chraibi</div><div class="ti-role">Diététicienne — Casablanca</div></div></div>
+          </div>
+          <div class="testimonial-item">
+            <div class="ti-stars">★★★★★</div>
+            <p class="ti-text">"Nous avons intégré les micro-pousses Pousses Vivantes à notre carte. Nos clients adorent et nos chefs apprécient la constance de la qualité semaine après semaine."</p>
+            <div class="ti-author"><img class="ti-avatar" src="https://randomuser.me/api/portraits/men/81.jpg" alt="Hassan Berrada" /><div><div class="ti-name">Hassan Berrada</div><div class="ti-role">Restaurateur — Rabat</div></div></div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Avis soumis dynamiquement via le formulaire -->
 
     <!-- Avis soumis par les visiteurs -->
     <div id="userReviewsGrid" style="display:none; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; margin-bottom:48px;"></div>
