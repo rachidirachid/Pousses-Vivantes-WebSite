@@ -2702,22 +2702,40 @@
       text-align: center;
       margin-bottom: 60px;
     }
-    .team-carousel-wrap {
-      overflow: hidden;
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    .team-carousel-outer {
+      position: relative;
     }
+    .team-carousel-wrap {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    }
+    .team-carousel-wrap::-webkit-scrollbar { display: none; }
     .team-track {
       display: flex;
       gap: 28px;
       width: max-content;
-      animation: teamScroll 36s linear infinite;
     }
-    .team-track:hover { animation-play-state: paused; }
-    @keyframes teamScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .team-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid var(--sage);
+      background: var(--ivory);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(26,46,26,.1);
+      transition: background .2s, border-color .2s;
     }
+    .team-arrow:hover { background: var(--sage); border-color: var(--sage); }
+    .team-arrow:hover svg path { stroke: #fff; }
+    .team-arrow svg path { stroke: var(--sage); transition: stroke .2s; }
+    .team-arrow-prev { left: -22px; }
+    .team-arrow-next { right: -22px; }
     .team-card {
       flex: 0 0 320px;
       background: #fff;
@@ -3422,8 +3440,15 @@
       </p>
     </div>
 
-    <div class="team-carousel-wrap">
-      <div class="team-track">
+    <div class="team-carousel-outer">
+      <button class="team-arrow team-arrow-prev" id="teamPrev" aria-label="Précédent">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="#5a7a4e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="team-arrow team-arrow-next" id="teamNext" aria-label="Suivant">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="#5a7a4e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="team-carousel-wrap" id="teamWrap">
+        <div class="team-track">
         <!-- Set 1 -->
         <div class="team-card">
           <div class="team-card-photo">
@@ -3557,6 +3582,7 @@
             <h3 class="team-card-name">Hind</h3>
             <p class="team-card-bio">Diététicienne-nutritionniste, Hind pilote la R&D de nouvelles variétés et conçoit nos guides nutritionnels pour clients et partenaires.</p>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -4504,6 +4530,47 @@
         localStorage.setItem('pv_cookie_consent', '1');
         banner.style.display = 'none';
       });
+    })();
+  </script>
+
+  <!-- ── TEAM AUTO-SCROLL + ARROWS ── -->
+  <script>
+    (function() {
+      var wrap  = document.getElementById('teamWrap');
+      if (!wrap) return;
+
+      var STEP     = 348;   // card width (320) + gap (28)
+      var SPEED    = 0.8;   // px per frame
+      var paused   = false;
+      var rafId    = null;
+
+      // Infinite loop: when we reach the halfway point, snap back silently
+      function autoScroll() {
+        if (!paused) {
+          wrap.scrollLeft += SPEED;
+          var half = wrap.scrollWidth / 2;
+          if (wrap.scrollLeft >= half) wrap.scrollLeft -= half;
+        }
+        rafId = requestAnimationFrame(autoScroll);
+      }
+
+      // Pause on hover
+      wrap.addEventListener('mouseenter', function() { paused = true; });
+      wrap.addEventListener('mouseleave', function() { paused = false; });
+
+      // Arrow buttons
+      document.getElementById('teamPrev') && document.getElementById('teamPrev').addEventListener('click', function() {
+        paused = true;
+        wrap.scrollBy({ left: -STEP, behavior: 'smooth' });
+        setTimeout(function() { paused = false; }, 600);
+      });
+      document.getElementById('teamNext') && document.getElementById('teamNext').addEventListener('click', function() {
+        paused = true;
+        wrap.scrollBy({ left: STEP, behavior: 'smooth' });
+        setTimeout(function() { paused = false; }, 600);
+      });
+
+      autoScroll();
     })();
   </script>
 
