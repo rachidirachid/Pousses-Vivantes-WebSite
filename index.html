@@ -504,8 +504,8 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 4rem;
       align-items: center;
     }
 
@@ -528,7 +528,7 @@
     .farm-rack-img {
       position: relative;
       z-index: 1;
-      max-width: 340px;
+      max-width: 480px;
       margin: 0 auto;
       filter: drop-shadow(0 30px 50px rgba(26,46,26,0.18));
       transition: transform 0.6s var(--ease-out-expo);
@@ -3466,6 +3466,28 @@
             <p class="team-card-bio">Nadia coordonne toutes les livraisons pour s'assurer que vos commandes arrivent dans les meilleures conditions, toujours vivantes.</p>
           </div>
         </div>
+        <div class="team-card" data-index="4">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" alt="Omar — Développement commercial" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Développement Commercial</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Omar</h3>
+            <p class="team-card-bio">Fort de 8 ans d'expérience en développement commercial dans la restauration, Omar tisse les partenariats stratégiques avec les chefs et hôtels du Maroc.</p>
+          </div>
+        </div>
+        <div class="team-card" data-index="5">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80" alt="Hind — Nutrition & R&D" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Nutrition & R&D</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Hind</h3>
+            <p class="team-card-bio">Diététicienne-nutritionniste, Hind pilote la recherche et développement de nouvelles variétés et conçoit nos guides nutritionnels pour les clients et partenaires.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -4428,7 +4450,7 @@
       var scrollTimeout = null;
       var rafId         = null;
       var AUTO_SPEED    = 0.02;
-      var RADIUS        = window.innerWidth < 600 ? 260 : 460;
+      var RADIUS        = window.innerWidth < 600 ? 280 : 520;
       var anglePerItem  = 360 / n;
 
       // Position each card on the circle
@@ -4465,7 +4487,7 @@
       }, { passive: true });
 
       window.addEventListener('resize', function() {
-        RADIUS = window.innerWidth < 600 ? 260 : 460;
+        RADIUS = window.innerWidth < 600 ? 280 : 520;
         cards.forEach(function(card, i) {
           card.style.transform = 'rotateY(' + (i * anglePerItem) + 'deg) translateZ(' + RADIUS + 'px)';
         });
