@@ -3576,6 +3576,9 @@
       </div>
     </div>
 
+    <!-- Avis soumis par les visiteurs -->
+    <div id="userReviewsGrid" style="display:none; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; margin-bottom:48px;"></div>
+
     <!-- Formulaire avis -->
     <div class="review-form-wrap reveal">
       <h3 class="review-form-title">Donnez votre avis</h3>
@@ -4513,7 +4516,9 @@
           '</div>' +
         '</div>';
 
-      document.getElementById('reviewsGrid').appendChild(card);
+      var userGrid = document.getElementById('userReviewsGrid');
+      userGrid.style.display = 'grid';
+      userGrid.appendChild(card);
       document.getElementById('rfSuccess').style.display = 'block';
       document.getElementById('reviewForm').reset();
       document.getElementById('ratingValue').value = '0';
