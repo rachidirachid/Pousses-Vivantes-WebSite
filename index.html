@@ -2689,6 +2689,192 @@
       white-space: nowrap;
       border: 0;
     }
+
+    /* ────────────────────────────────────────────────
+       TEAM SECTION
+    ──────────────────────────────────────────────── */
+    .team-section {
+      padding: 100px 6vw;
+      background: var(--ivory);
+      overflow: hidden;
+    }
+    .team-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .team-carousel-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .team-track {
+      display: flex;
+      gap: 28px;
+      transition: transform 0.6s var(--ease-out-expo);
+      will-change: transform;
+    }
+    .team-card {
+      flex: 0 0 calc(33.333% - 19px);
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26,46,26,.07);
+      transition: transform .35s var(--ease-out-expo), box-shadow .35s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(26,46,26,.14);
+    }
+    .team-card-photo {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+    .team-card-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s var(--ease-out-expo);
+    }
+    .team-card:hover .team-card-photo img { transform: scale(1.06); }
+    .team-card-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,46,26,.55) 0%, transparent 55%);
+    }
+    .team-card-role {
+      position: absolute; bottom: 16px; left: 20px;
+      font-family: var(--font-body);
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(26,46,26,.6);
+      padding: 4px 12px; border-radius: 20px;
+      backdrop-filter: blur(6px);
+    }
+    .team-card-body {
+      padding: 24px 24px 28px;
+    }
+    .team-card-name {
+      font-family: var(--font-display);
+      font-size: 1.55rem; font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 10px;
+    }
+    .team-card-bio {
+      font-size: .88rem;
+      color: var(--text-body);
+      line-height: 1.65;
+    }
+    .team-nav {
+      display: flex; justify-content: center; gap: 12px;
+      margin-top: 40px;
+    }
+    .team-nav-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid var(--sage);
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .team-nav-btn:hover { background: var(--sage); border-color: var(--sage); }
+    .team-nav-btn:hover svg path { stroke: #fff; }
+    .team-nav-btn svg path { stroke: var(--sage); transition: stroke .2s; }
+    @media (max-width: 900px) {
+      .team-card { flex: 0 0 calc(50% - 14px); }
+    }
+    @media (max-width: 580px) {
+      .team-card { flex: 0 0 85%; }
+    }
+
+    /* ────────────────────────────────────────────────
+       REVIEWS SECTION
+    ──────────────────────────────────────────────── */
+    .reviews-section {
+      padding: 100px 6vw;
+      background: var(--cream);
+    }
+    .reviews-header { text-align: center; margin-bottom: 60px; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+    @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .reviews-grid { grid-template-columns: 1fr; } }
+    .review-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 16px rgba(26,46,26,.06);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .review-stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; }
+    .review-text {
+      font-size: .92rem; line-height: 1.7;
+      color: var(--text-body);
+      font-style: italic;
+    }
+    .review-author {
+      display: flex; align-items: center; gap: 12px;
+      margin-top: auto;
+    }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--mist);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--forest); font-weight: 600;
+      flex-shrink: 0;
+    }
+    .review-author-name {
+      font-weight: 600; font-size: .88rem; color: var(--forest);
+    }
+    .review-author-city { font-size: .78rem; color: var(--sage); }
+    /* form */
+    .review-form-wrap {
+      max-width: 640px; margin: 0 auto;
+      background: #fff; border-radius: 20px;
+      padding: 40px; box-shadow: 0 4px 24px rgba(26,46,26,.08);
+    }
+    .review-form-title {
+      font-family: var(--font-display);
+      font-size: 1.7rem; color: var(--forest);
+      margin-bottom: 28px; text-align: center;
+    }
+    .star-picker { display: flex; gap: 6px; margin-bottom: 20px; }
+    .star-picker span {
+      font-size: 1.6rem; cursor: pointer;
+      color: #ccc; transition: color .15s;
+      user-select: none;
+    }
+    .star-picker span.active { color: var(--gold); }
+    .rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 520px) { .rf-row { grid-template-columns: 1fr; } }
+    .rf-field { display: flex; flex-direction: column; gap: 6px; }
+    .rf-field label { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--sage); }
+    .rf-field input, .rf-field textarea {
+      border: 1.5px solid var(--mist);
+      border-radius: 10px; padding: 12px 14px;
+      font-family: var(--font-body); font-size: .9rem; color: var(--charcoal);
+      background: var(--ivory); outline: none;
+      transition: border-color .2s;
+    }
+    .rf-field input:focus, .rf-field textarea:focus { border-color: var(--sage); }
+    .rf-field textarea { resize: vertical; min-height: 110px; }
+    .rf-submit {
+      width: 100%; padding: 15px;
+      background: var(--forest); color: #fff;
+      border: none; border-radius: 12px;
+      font-family: var(--font-body); font-size: .95rem; font-weight: 600;
+      cursor: pointer; margin-top: 8px;
+      transition: background .2s, transform .15s;
+    }
+    .rf-submit:hover { background: var(--moss); transform: translateY(-1px); }
+    .rf-success {
+      display: none; text-align: center;
+      color: var(--sage); font-weight: 600;
+      margin-top: 16px; font-size: .95rem;
+    }
+
     </style>
   <script type="application/ld+json">
   {
@@ -3208,31 +3394,160 @@
   </section>
 
   <!-- ══════════════════════════════════════════════
-       HOW IT WORKS
+       TEAM PROFILES
   ══════════════════════════════════════════════ -->
-  <section class="how-it-works" id="qui-sommes-nous">
-    <div class="how-it-works-inner">
-      <div class="how-header">
-        <p class="section-eyebrow reveal">Le processus</p>
-        <h2 class="section-title reveal delay-1">De la <em>graine</em> à votre <em>table</em></h2>
+  <section class="team-section" id="qui-sommes-nous">
+    <div class="team-header">
+      <p class="section-eyebrow reveal">Notre équipe</p>
+      <h2 class="section-title reveal delay-1">Des passionnés au service de votre <em>santé</em></h2>
+      <p class="section-body reveal delay-2" style="max-width:560px;margin:0 auto;">
+        Chaque membre de l'équipe Pousses Vivantes partage la même conviction : une alimentation vivante transforme les assiettes et les vies.
+      </p>
+    </div>
+
+    <div class="team-carousel-wrap">
+      <div class="team-track" id="teamTrack">
+
+        <div class="team-card reveal delay-1">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=600&q=80" alt="Rachid — Fondateur" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Fondateur & Cultivateur</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Rachid</h3>
+            <p class="team-card-bio">Passionné d'agriculture urbaine depuis plus de 10 ans, Rachid a fondé Pousses Vivantes pour rendre l'alimentation vivante accessible à tous au Maroc.</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-2">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80" alt="Salma — Responsable qualité" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Responsable Qualité</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Salma</h3>
+            <p class="team-card-bio">Ingénieure agronome de formation, Salma supervise chaque étape de la culture pour garantir des micro-pousses d'une fraîcheur et d'une densité nutritive irréprochables.</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-3">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=600&q=80" alt="Youssef — Chef partenaire" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Chef Partenaire</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Youssef</h3>
+            <p class="team-card-bio">Chef étoilé et ambassadeur de la cuisine marocaine contemporaine, Youssef collabore avec notre équipe pour développer des variétés adaptées aux grandes tables gastronomiques.</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-1">
+          <div class="team-card-photo">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Nadia — Livraison & logistique" loading="lazy" />
+            <div class="team-card-photo-overlay"></div>
+            <span class="team-card-role">Logistique & Livraison</span>
+          </div>
+          <div class="team-card-body">
+            <h3 class="team-card-name">Nadia</h3>
+            <p class="team-card-bio">Nadia coordonne toutes les livraisons pour s'assurer que vos commandes arrivent dans les meilleures conditions, toujours à temps, toujours vivantes.</p>
+          </div>
+        </div>
+
       </div>
-      <div class="steps">
-        <div class="step reveal delay-1">
-          <div class="step-number">01</div>
-          <h3 class="step-title">Sélection des semences</h3>
-          <p class="step-desc">Nous sourçons uniquement des semences biologiques certifiées auprès de producteurs européens engagés dans l'agriculture durable.</p>
-        </div>
-        <div class="step reveal delay-2">
-          <div class="step-number">02</div>
-          <h3 class="step-title">Culture & surveillance</h3>
-          <p class="step-desc">En ferme verticale indoor, chaque plateau est surveillé quotidiennement. Lumière, humidité, température : tout est optimisé à la perfection.</p>
-        </div>
-        <div class="step reveal delay-3">
-          <div class="step-number">03</div>
-          <h3 class="step-title">Récolte & livraison</h3>
-          <p class="step-desc">Récoltées manuellement au sommet de leur fraîcheur, emballées dans des barquettes éco-responsables et livrées sous 48h.</p>
+    </div>
+
+    <div class="team-nav">
+      <button class="team-nav-btn" id="teamPrev" aria-label="Précédent">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="#5a7a4e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="team-nav-btn" id="teamNext" aria-label="Suivant">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="#5a7a4e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       REVIEWS
+  ══════════════════════════════════════════════ -->
+  <section class="reviews-section" id="avis">
+    <div class="reviews-header">
+      <p class="section-eyebrow reveal">Témoignages</p>
+      <h2 class="section-title reveal delay-1">Ce que disent nos <em>clients</em></h2>
+    </div>
+
+    <div class="reviews-grid" id="reviewsGrid">
+
+      <div class="review-card reveal delay-1">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Des micro-pousses d'une fraîcheur incroyable. Depuis que je les intègre à mes plats, mes clients ne cessent de me complimenter. Un partenaire de confiance."</p>
+        <div class="review-author">
+          <div class="review-avatar">K</div>
+          <div>
+            <div class="review-author-name">Karim Benali</div>
+            <div class="review-author-city">Chef — Casablanca</div>
+          </div>
         </div>
       </div>
+
+      <div class="review-card reveal delay-2">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Je commande chaque semaine depuis 3 mois. La qualité est constante, la livraison toujours ponctuelle. Je recommande Pousses Vivantes les yeux fermés."</p>
+        <div class="review-author">
+          <div class="review-avatar">L</div>
+          <div>
+            <div class="review-author-name">Leila Moussaoui</div>
+            <div class="review-author-city">Particulier — Rabat</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal delay-3">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Le radis et le tournesol sont mes préférés. Croquants, savoureux et magnifiques à dresser. Je suis fan du concept et j'attends avec impatience de nouvelles variétés."</p>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div>
+            <div class="review-author-name">Amine Tazi</div>
+            <div class="review-author-city">Particulier — Marrakech</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Formulaire avis -->
+    <div class="review-form-wrap reveal">
+      <h3 class="review-form-title">Donnez votre avis</h3>
+      <form id="reviewForm" onsubmit="submitReview(event)">
+        <p style="font-size:.82rem;color:var(--sage);margin-bottom:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Votre note</p>
+        <div class="star-picker" id="starPicker">
+          <span data-v="1">★</span>
+          <span data-v="2">★</span>
+          <span data-v="3">★</span>
+          <span data-v="4">★</span>
+          <span data-v="5">★</span>
+        </div>
+        <input type="hidden" id="ratingValue" value="0" />
+        <div class="rf-row">
+          <div class="rf-field">
+            <label for="rfName">Prénom</label>
+            <input type="text" id="rfName" placeholder="Votre prénom" required />
+          </div>
+          <div class="rf-field">
+            <label for="rfCity">Ville</label>
+            <input type="text" id="rfCity" placeholder="Votre ville" />
+          </div>
+        </div>
+        <div class="rf-field" style="margin-bottom:16px;">
+          <label for="rfText">Votre avis</label>
+          <textarea id="rfText" placeholder="Partagez votre expérience avec Pousses Vivantes…" required></textarea>
+        </div>
+        <button type="submit" class="rf-submit">Publier mon avis</button>
+        <p class="rf-success" id="rfSuccess">Merci pour votre avis ! Il a bien été enregistré. 🌱</p>
+      </form>
     </div>
   </section>
 
@@ -4141,6 +4456,107 @@
         banner.style.display = 'none';
       });
     })();
+  </script>
+
+  <!-- ── TEAM CAROUSEL ── -->
+  <script>
+    (function() {
+      const track = document.getElementById('teamTrack');
+      const cards = track ? track.querySelectorAll('.team-card') : [];
+      let index = 0;
+
+      function getVisible() {
+        if (window.innerWidth <= 580) return 1;
+        if (window.innerWidth <= 900) return 2;
+        return 3;
+      }
+
+      function slide() {
+        const visible = getVisible();
+        const max = Math.max(0, cards.length - visible);
+        if (index > max) index = max;
+        const cardW = cards[0] ? cards[0].offsetWidth + 28 : 0;
+        track.style.transform = 'translateX(-' + (index * cardW) + 'px)';
+      }
+
+      document.getElementById('teamNext') && document.getElementById('teamNext').addEventListener('click', function() {
+        const visible = getVisible();
+        const max = Math.max(0, cards.length - visible);
+        index = index < max ? index + 1 : 0;
+        slide();
+      });
+
+      document.getElementById('teamPrev') && document.getElementById('teamPrev').addEventListener('click', function() {
+        const visible = getVisible();
+        const max = Math.max(0, cards.length - visible);
+        index = index > 0 ? index - 1 : max;
+        slide();
+      });
+
+      window.addEventListener('resize', function() { index = 0; slide(); });
+    })();
+  </script>
+
+  <!-- ── STAR PICKER & REVIEW FORM ── -->
+  <script>
+    (function() {
+      var picker = document.getElementById('starPicker');
+      var ratingInput = document.getElementById('ratingValue');
+      if (!picker) return;
+
+      var stars = picker.querySelectorAll('span');
+      var current = 0;
+
+      stars.forEach(function(star) {
+        star.addEventListener('mouseover', function() {
+          var v = parseInt(star.dataset.v);
+          stars.forEach(function(s) { s.classList.toggle('active', parseInt(s.dataset.v) <= v); });
+        });
+        star.addEventListener('click', function() {
+          current = parseInt(star.dataset.v);
+          ratingInput.value = current;
+          stars.forEach(function(s) { s.classList.toggle('active', parseInt(s.dataset.v) <= current); });
+        });
+      });
+
+      picker.addEventListener('mouseleave', function() {
+        stars.forEach(function(s) { s.classList.toggle('active', parseInt(s.dataset.v) <= current); });
+      });
+    })();
+
+    function submitReview(e) {
+      e.preventDefault();
+      var rating = parseInt(document.getElementById('ratingValue').value);
+      var name = document.getElementById('rfName').value.trim();
+      var city = document.getElementById('rfCity').value.trim();
+      var text = document.getElementById('rfText').value.trim();
+
+      if (rating === 0) { alert('Veuillez sélectionner une note.'); return; }
+
+      var stars = '';
+      for (var i = 1; i <= 5; i++) stars += i <= rating ? '★' : '☆';
+
+      var card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML =
+        '<div class="review-stars">' + stars + '</div>' +
+        '<p class="review-text">"' + text.replace(/</g,'&lt;') + '"</p>' +
+        '<div class="review-author">' +
+          '<div class="review-avatar">' + name.charAt(0).toUpperCase() + '</div>' +
+          '<div>' +
+            '<div class="review-author-name">' + name.replace(/</g,'&lt;') + '</div>' +
+            '<div class="review-author-city">' + (city ? city.replace(/</g,'&lt;') : 'Client Pousses Vivantes') + '</div>' +
+          '</div>' +
+        '</div>';
+
+      document.getElementById('reviewsGrid').appendChild(card);
+      document.getElementById('rfSuccess').style.display = 'block';
+      document.getElementById('reviewForm').reset();
+      document.getElementById('ratingValue').value = '0';
+      document.querySelectorAll('#starPicker span').forEach(function(s) { s.classList.remove('active'); });
+
+      setTimeout(function() { document.getElementById('rfSuccess').style.display = 'none'; }, 4000);
+    }
   </script>
 </body>
 </html>
